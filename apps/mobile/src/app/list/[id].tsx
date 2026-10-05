@@ -7,7 +7,7 @@ import { EmptyState } from "@/components/EmptyState";
 import { NamePrompt } from "@/components/NamePrompt";
 import { ProductCard } from "@/components/ProductCard";
 import { confirm } from "@/lib/confirm";
-import { FAVORITES_ID, useLists } from "@/store/lists";
+import { useLists } from "@/store/lists";
 import { space } from "@/theme";
 
 export default function ListScreen() {
@@ -21,7 +21,7 @@ export default function ListScreen() {
     return <EmptyState icon="albums-outline" title="List not found" message="This list may have been deleted." />;
   }
   const products = list.productIds.map(getProductById).filter((p) => p !== undefined);
-  const editable = list.id !== FAVORITES_ID;
+  const editable = !list.isFavorites;
 
   return (
     <>

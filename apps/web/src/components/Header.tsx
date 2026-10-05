@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { getCategories, site } from "@basecamp/shared";
+import { AccountNav } from "./AccountNav";
 import { SearchBox } from "./SearchBox";
 
 export function Header() {
@@ -17,6 +18,9 @@ export function Header() {
         <div className="ml-auto hidden w-64 md:block">
           <SearchBox />
         </div>
+        <div className="hidden shrink-0 md:block">
+          <AccountNav />
+        </div>
         <details className="relative ml-auto md:hidden">
           <summary className="cursor-pointer list-none rounded border border-canvas-200/40 px-3 py-1 text-sm">
             Menu
@@ -28,6 +32,9 @@ export function Header() {
                 {c.name}
               </Link>
             ))}
+            <div className="border-t border-canvas-200/20 pt-3">
+              <AccountNav stacked />
+            </div>
           </div>
         </details>
       </div>

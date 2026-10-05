@@ -1,31 +1,31 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { getChecklistTemplate, type ChecklistItemTemplate } from "@basecamp/shared";
+import {
+  addItem as addItemDb,
+  createTrip as createTripDb,
+  CUSTOM_SECTION,
+  deleteTrip as deleteTripDb,
+  fetchTrips,
+  removeItem as removeItemDb,
+  setItemChecked,
+  type Trip,
+  type TripItem,
+} from "@basecamp/shared";
 import { create } from "zustand";
-import { createJSONStorage, persist } from "zustand/middleware";
-import { newId } from "@/lib/id";
+import { showError } from "@/lib/confirm";
+import { supabase } from "@/lib/supabase";
 
-export type TripItem = ChecklistItemTemplate & {
-  id: string;
-  section: string;
-  checked: boolean;
-};
-
-export type Trip = {
-  id: string;
-  name: string;
-  templateId?: string;
-  createdAt: number;
-  items: TripItem[];
-};
-
-export const CUSTOM_SECTION = "My items";
+export { CUSTOM_SECTION };
+export type { Trip, TripItem };
 
 type TripsState = {
   trips: Trip[];
-  createTrip: (name: string, templateId?: string) => string;
+  /** True once the signed-in user's trips have loaded at least once. */
+  loaded: boolean;
+  load: () => Promise<void>;
+  clear: () => void;
+  createTrip: (name: string, templateId?: string) => Promise<string | undefined>;
   deleteTrip: (id: string) => void;
   toggleItem: (tripId: string, itemId: string) => void;
-  addItem: (tripId: string, label: string) => void;
+  addItem: (tripId: string, label: string) => Promise<void>;
   removeItem: (tripId: string, itemId: string) => void;
 };
 
@@ -33,44 +33,83 @@ function updateTrip(trips: Trip[], id: string, fn: (t: Trip) => Trip): Trip[] {
   return trips.map((t) => (t.id === id ? fn(t) : t));
 }
 
-export const useTrips = create<TripsState>()(
-  persist(
-    (set) => ({
-      trips: [],
-      createTrip: (name, templateId) => {
-        const id = newId();
-        const template = templateId ? getChecklistTemplate(templateId) : undefined;
-        const items: TripItem[] =
-          template?.sections.flatMap((section) =>
-            section.items.map((item) => ({ ...item, id: newId(), section: section.title, checked: false })),
-          ) ?? [];
-        set((s) => ({ trips: [{ id, name, templateId, createdAt: Date.now(), items }, ...s.trips] }));
-        return id;
-      },
-      deleteTrip: (id) => set((s) => ({ trips: s.trips.filter((t) => t.id !== id) })),
-      toggleItem: (tripId, itemId) =>
-        set((s) => ({
-          trips: updateTrip(s.trips, tripId, (t) => ({
+/**
+ * The signed-in user's trip checklists, kept in Supabase.
+ * Changes show immediately and are rolled back if the write fails.
+ */
+export const useTrips = create<TripsState>()((set, get) => {
+  async function optimistic(change: (trips: Trip[]) => Trip[], write: () => Promise<void>) {
+    const previous = get().trips;
+    set({ trips: change(previous) });
+    try {
+      await write();
+    } catch {
+      set({ trips: previous });
+      showError();
+    }
+  }
+
+  return {
+    trips: [],
+    loaded: false,
+    load: async () => {
+      if (!supabase) return;
+      try {
+        set({ trips: await fetchTrips(supabase), loaded: true });
+      } catch {
+        // Keep whatever we had; the next focus or sign-in retries.
+      }
+    },
+    clear: () => set({ trips: [], loaded: false }),
+    createTrip: async (name, templateId) => {
+      if (!supabase) return;
+      try {
+        const trip = await createTripDb(supabase, name, templateId);
+        set((s) => ({ trips: [trip, ...s.trips] }));
+        return trip.id;
+      } catch {
+        showError("Couldn't create the trip. Try again.");
+      }
+    },
+    deleteTrip: (id) => {
+      const sb = supabase;
+      if (!sb) return;
+      optimistic(
+        (trips) => trips.filter((t) => t.id !== id),
+        () => deleteTripDb(sb, id),
+      );
+    },
+    toggleItem: (tripId, itemId) => {
+      const sb = supabase;
+      const item = get()
+        .trips.find((t) => t.id === tripId)
+        ?.items.find((i) => i.id === itemId);
+      if (!sb || !item) return;
+      optimistic(
+        (trips) =>
+          updateTrip(trips, tripId, (t) => ({
             ...t,
             items: t.items.map((i) => (i.id === itemId ? { ...i, checked: !i.checked } : i)),
           })),
-        })),
-      addItem: (tripId, label) =>
-        set((s) => ({
-          trips: updateTrip(s.trips, tripId, (t) => ({
-            ...t,
-            items: [...t.items, { id: newId(), label, section: CUSTOM_SECTION, checked: false }],
-          })),
-        })),
-      removeItem: (tripId, itemId) =>
-        set((s) => ({
-          trips: updateTrip(s.trips, tripId, (t) => ({ ...t, items: t.items.filter((i) => i.id !== itemId) })),
-        })),
-    }),
-    {
-      name: "basecamp-trips",
-      version: 1,
-      storage: createJSONStorage(() => AsyncStorage),
+        () => setItemChecked(sb, itemId, !item.checked),
+      );
     },
-  ),
-);
+    addItem: async (tripId, label) => {
+      if (!supabase) return;
+      try {
+        const item = await addItemDb(supabase, tripId, label);
+        set((s) => ({ trips: updateTrip(s.trips, tripId, (t) => ({ ...t, items: [...t.items, item] })) }));
+      } catch {
+        showError("Couldn't add that item. Try again.");
+      }
+    },
+    removeItem: (tripId, itemId) => {
+      const sb = supabase;
+      if (!sb) return;
+      optimistic(
+        (trips) => updateTrip(trips, tripId, (t) => ({ ...t, items: t.items.filter((i) => i.id !== itemId) })),
+        () => removeItemDb(sb, itemId),
+      );
+    },
+  };
+});

@@ -1,19 +1,33 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { checklistTemplates } from "@basecamp/shared";
-import { Link, router } from "expo-router";
-import { useState } from "react";
+import { Link, router, useFocusEffect } from "expo-router";
+import { useCallback, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import { NamePrompt } from "@/components/NamePrompt";
 import { T } from "@/components/T";
+import { requireAuth, useAuth } from "@/store/auth";
 import { useTrips, type Trip } from "@/store/trips";
 import { colors, fonts, radius, space } from "@/theme";
 
 type Starting = { templateId?: string; defaultName: string };
 
 export default function TripsScreen() {
+  const user = useAuth((s) => s.user);
   const trips = useTrips((s) => s.trips);
   const createTrip = useTrips((s) => s.createTrip);
+  const load = useTrips((s) => s.load);
   const [starting, setStarting] = useState<Starting | null>(null);
+
+  // Pick up changes made on the website or another device.
+  useFocusEffect(
+    useCallback(() => {
+      if (user) load();
+    }, [user, load]),
+  );
+
+  const start = (choice: Starting) => {
+    if (requireAuth()) setStarting(choice);
+  };
 
   return (
     <ScrollView contentContainerStyle={{ padding: space.lg, gap: space.md, paddingBottom: space.xxl }}>
@@ -29,13 +43,16 @@ export default function TripsScreen() {
       <T variant="h2" style={{ marginTop: trips.length ? space.lg : 0 }}>
         Start a packing list
       </T>
-      <T variant="small">Pick a template and we'll fill in the essentials, with gear picks for each item.</T>
+      <T variant="small">
+        Pick a template and we'll fill in the essentials, with gear picks for each item.
+        {!user && " Sign in to save your trips. They sync with the website."}
+      </T>
       {checklistTemplates.map((tpl) => {
         const count = tpl.sections.reduce((n, s) => n + s.items.length, 0);
         return (
           <Pressable
             key={tpl.id}
-            onPress={() => setStarting({ templateId: tpl.id, defaultName: tpl.name })}
+            onPress={() => start({ templateId: tpl.id, defaultName: tpl.name })}
             style={({ pressed }) => [styles.template, pressed && { opacity: 0.85 }]}
             accessibilityRole="button"
           >
@@ -49,7 +66,7 @@ export default function TripsScreen() {
         );
       })}
       <Pressable
-        onPress={() => setStarting({ defaultName: "" })}
+        onPress={() => start({ defaultName: "" })}
         style={({ pressed }) => [styles.template, styles.blank, pressed && { opacity: 0.85 }]}
         accessibilityRole="button"
       >
@@ -64,10 +81,11 @@ export default function TripsScreen() {
         initialValue={starting?.defaultName}
         submitLabel="Create"
         onCancel={() => setStarting(null)}
-        onSubmit={(name) => {
-          const id = createTrip(name, starting?.templateId);
+        onSubmit={async (name) => {
+          const templateId = starting?.templateId;
           setStarting(null);
-          router.push(`/trip/${id}`);
+          const id = await createTrip(name, templateId);
+          if (id) router.push(`/trip/${id}`);
         }}
       />
     </ScrollView>

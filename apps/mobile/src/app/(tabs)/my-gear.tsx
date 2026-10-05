@@ -1,20 +1,45 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { getProductById } from "@basecamp/shared";
 import { Image } from "expo-image";
-import { Link, router } from "expo-router";
-import { useState } from "react";
+import { Link, router, useFocusEffect } from "expo-router";
+import { useCallback, useState } from "react";
 import { FlatList, Pressable, StyleSheet, View } from "react-native";
 import { Button } from "@/components/Button";
+import { EmptyState } from "@/components/EmptyState";
 import { NamePrompt } from "@/components/NamePrompt";
 import { T } from "@/components/T";
 import { imageSource } from "@/lib/images";
-import { FAVORITES_ID, useLists, type GearList } from "@/store/lists";
+import { useAuth } from "@/store/auth";
+import { useLists, type GearList } from "@/store/lists";
 import { colors, radius, space } from "@/theme";
 
 export default function MyGearScreen() {
+  const user = useAuth((s) => s.user);
   const lists = useLists((s) => s.lists);
   const createList = useLists((s) => s.createList);
+  const load = useLists((s) => s.load);
   const [naming, setNaming] = useState(false);
+
+  // Pick up changes made on the website or another device.
+  useFocusEffect(
+    useCallback(() => {
+      if (user) load();
+    }, [user, load]),
+  );
+
+  if (!user) {
+    return (
+      <View style={{ padding: space.lg }}>
+        <EmptyState
+          icon="heart-outline"
+          title="Save your favourite gear"
+          message="Sign in to save products and build kits for different trips. Your lists sync with the website."
+        >
+          <Button title="Sign in" onPress={() => router.push("/sign-in")} style={{ marginTop: space.sm }} />
+        </EmptyState>
+      </View>
+    );
+  }
 
   return (
     <>
@@ -38,10 +63,10 @@ export default function MyGearScreen() {
         placeholder="e.g. Winter backpacking kit"
         submitLabel="Create"
         onCancel={() => setNaming(false)}
-        onSubmit={(name) => {
-          const id = createList(name);
+        onSubmit={async (name) => {
           setNaming(false);
-          router.push(`/list/${id}`);
+          const id = await createList(name);
+          if (id) router.push(`/list/${id}`);
         }}
       />
     </>
@@ -58,9 +83,9 @@ function ListRow({ list }: { list: GearList }) {
       <Pressable style={styles.row}>
         <View style={styles.icon}>
           <Ionicons
-            name={list.id === FAVORITES_ID ? "heart" : "albums-outline"}
+            name={list.isFavorites ? "heart" : "albums-outline"}
             size={22}
-            color={list.id === FAVORITES_ID ? colors.ember500 : colors.forest700}
+            color={list.isFavorites ? colors.ember500 : colors.forest700}
           />
         </View>
         <View style={{ flex: 1, gap: 2 }}>

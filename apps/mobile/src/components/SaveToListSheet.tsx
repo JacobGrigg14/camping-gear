@@ -62,9 +62,9 @@ export function SaveToListSheet({
         placeholder="e.g. Winter backpacking kit"
         submitLabel="Create"
         onCancel={() => setNaming(false)}
-        onSubmit={(name) => {
-          createList(name, productId);
+        onSubmit={async (name) => {
           setNaming(false);
+          await createList(name, productId);
         }}
       />
     </Modal>

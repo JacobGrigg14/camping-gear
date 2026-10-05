@@ -13,6 +13,7 @@ import { SaveButton } from "@/components/SaveButton";
 import { SaveToListSheet } from "@/components/SaveToListSheet";
 import { T } from "@/components/T";
 import { imageSource } from "@/lib/images";
+import { requireAuth } from "@/store/auth";
 import { colors, fonts, radius, space } from "@/theme";
 
 export default function ProductScreen() {
@@ -69,7 +70,11 @@ export default function ProductScreen() {
             <PriceTier tier={product.priceTier} />
           </View>
           <T>{product.shortDescription}</T>
-          <Pressable onPress={() => setSheetOpen(true)} style={styles.saveRow} accessibilityRole="button">
+          <Pressable
+            onPress={() => requireAuth() && setSheetOpen(true)}
+            style={styles.saveRow}
+            accessibilityRole="button"
+          >
             <Ionicons name="bookmark-outline" size={18} color={colors.forest700} />
             <T style={styles.saveText}>Save to a list…</T>
           </Pressable>

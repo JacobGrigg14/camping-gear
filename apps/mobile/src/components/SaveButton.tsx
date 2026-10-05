@@ -1,9 +1,10 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { Pressable, StyleSheet } from "react-native";
-import { FAVORITES_ID, useIsInAnyList, useLists } from "@/store/lists";
+import { requireAuth } from "@/store/auth";
+import { useFavoritesId, useIsInAnyList, useLists } from "@/store/lists";
 import { colors } from "@/theme";
 
-/** Heart toggle: tap saves to Favorites (or removes from it); long-press opens the list picker. */
+/** Heart toggle: tap saves to Favorites (or removes from it); long-press opens the list picker. Needs an account. */
 export function SaveButton({
   productId,
   onLongPress,
@@ -16,11 +17,14 @@ export function SaveButton({
   floating?: boolean;
 }) {
   const saved = useIsInAnyList(productId);
+  const favoritesId = useFavoritesId();
   const toggle = useLists((s) => s.toggleProduct);
   return (
     <Pressable
-      onPress={() => toggle(FAVORITES_ID, productId)}
-      onLongPress={onLongPress}
+      onPress={() => {
+        if (requireAuth() && favoritesId) toggle(favoritesId, productId);
+      }}
+      onLongPress={onLongPress && (() => requireAuth() && onLongPress())}
       hitSlop={8}
       accessibilityRole="button"
       accessibilityLabel={saved ? "Saved. Tap to toggle Favorites" : "Save to Favorites"}

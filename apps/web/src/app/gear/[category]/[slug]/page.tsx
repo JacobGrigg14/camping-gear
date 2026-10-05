@@ -6,6 +6,8 @@ import { ImageGallery } from "@/components/ImageGallery";
 import { PriceTier } from "@/components/PriceTier";
 import { ProductGrid } from "@/components/ProductGrid";
 import { Rating } from "@/components/Rating";
+import { SaveButton } from "@/components/SaveButton";
+import { SaveToList } from "@/components/SaveToList";
 import {
   getCategory,
   getProduct,
@@ -83,7 +85,10 @@ export default async function ProductPage({ params }: PageProps<"/gear/[category
           <p className="text-sm font-semibold uppercase tracking-wider text-bark-500">
             {product.brand} · {getSubcategoryName(product)}
           </p>
-          <h1 className="mt-1 text-3xl font-extrabold md:text-4xl">{product.name}</h1>
+          <div className="mt-1 flex items-start justify-between gap-4">
+            <h1 className="text-3xl font-extrabold md:text-4xl">{product.name}</h1>
+            <SaveButton productId={product.id} className="mt-1 shrink-0 border border-canvas-200" />
+          </div>
           <div className="mt-3 flex items-center gap-4">
             <Rating value={product.rating} />
             <PriceTier tier={product.priceTier} />
@@ -91,6 +96,9 @@ export default async function ProductPage({ params }: PageProps<"/gear/[category
           <p className="mt-4 text-lg text-bark-700">{product.shortDescription}</p>
           <div className="mt-6 rounded-lg border border-canvas-200 bg-white p-5">
             <BuyButtons product={product} />
+          </div>
+          <div className="mt-4">
+            <SaveToList productId={product.id} />
           </div>
         </div>
       </div>

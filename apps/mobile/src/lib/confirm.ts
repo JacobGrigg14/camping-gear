@@ -11,3 +11,9 @@ export function confirm(title: string, message: string, onConfirm: () => void, c
     { text: confirmLabel, style: "destructive", onPress: onConfirm },
   ]);
 }
+
+/** Tells the user a change didn't save (e.g. offline). */
+export function showError(message = "Couldn't save that change. Check your connection and try again.") {
+  if (Platform.OS === "web") console.warn(message);
+  else Alert.alert("Something went wrong", message);
+}

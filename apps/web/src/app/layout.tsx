@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Bitter, Inter } from "next/font/google";
+import { AccountProvider } from "@/components/AccountProvider";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
 import { site } from "@basecamp/shared";
@@ -20,9 +21,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${inter.variable} ${bitter.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col font-sans">
-        <Header />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <AccountProvider>
+          <Header />
+          <main className="flex-1">{children}</main>
+          <Footer />
+        </AccountProvider>
       </body>
     </html>
   );

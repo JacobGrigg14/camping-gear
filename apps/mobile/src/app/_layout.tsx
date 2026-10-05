@@ -10,6 +10,7 @@ import { DefaultTheme, Stack, ThemeProvider } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
+import { useAuth } from "@/store/auth";
 import { colors, headerOptions } from "@/theme";
 
 SplashScreen.preventAutoHideAsync();
@@ -36,11 +37,13 @@ export default function RootLayout() {
     Inter_700Bold,
   });
 
+  const authReady = useAuth((s) => s.ready);
   useEffect(() => {
-    if (loaded || error) SplashScreen.hideAsync();
-  }, [loaded, error]);
+    if ((loaded || error) && authReady) SplashScreen.hideAsync();
+  }, [loaded, error, authReady]);
 
-  if (!loaded && !error) return null;
+  // Wait for fonts and the stored session, so saved hearts don't flicker on launch.
+  if ((!loaded && !error) || !authReady) return null;
 
   return (
     <ThemeProvider value={theme}>
@@ -52,6 +55,9 @@ export default function RootLayout() {
         <Stack.Screen name="list/[id]" options={{ title: "" }} />
         <Stack.Screen name="trip/[id]" options={{ title: "" }} />
         <Stack.Screen name="about" options={{ title: "About" }} />
+        <Stack.Screen name="account" options={{ title: "Account" }} />
+        <Stack.Screen name="sign-in" options={{ title: "", presentation: "modal" }} />
+        <Stack.Screen name="auth/callback" options={{ headerShown: false }} />
       </Stack>
     </ThemeProvider>
   );

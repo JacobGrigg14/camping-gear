@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState, useSyncExternalStore } from "react";
 import { type PriceTier, priceTierLabels, type Product, type Subcategory } from "@basecamp/shared";
 import { Pagination } from "./Pagination";
 import { ProductGrid } from "./ProductGrid";
@@ -9,11 +9,21 @@ type Sort = "rating" | "price-asc" | "price-desc" | "name";
 
 const PAGE_SIZE = 9;
 
+const noSubscribe = () => () => {};
+
 const selectClass =
   "select w-full rounded-md border border-canvas-300 bg-white py-2 pl-3 text-sm focus:border-forest-500 focus:outline-none";
 
 export function CategoryBrowser({ products, subcategories }: { products: Product[]; subcategories: Subcategory[] }) {
-  const [subcategory, setSubcategory] = useState("");
+  const [chosenSubcategory, setSubcategory] = useState<string | null>(null);
+  // Deep links like /gear/shelter-sleep?type=tents (from trip checklists) preselect a type until the visitor picks one.
+  // Read on the client only, so the page itself stays static.
+  const urlType = useSyncExternalStore(
+    noSubscribe,
+    () => new URLSearchParams(window.location.search).get("type"),
+    () => null,
+  );
+  const subcategory = chosenSubcategory ?? (urlType && subcategories.some((s) => s.slug === urlType) ? urlType : "");
   const [brand, setBrand] = useState("");
   const [tier, setTier] = useState<PriceTier | "">("");
   const [minRating, setMinRating] = useState(0);
