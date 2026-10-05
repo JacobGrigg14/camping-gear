@@ -1,6 +1,8 @@
-// Generates filler product images in public/placeholders/.
-// Run with: node scripts/generate-placeholders.mjs
+// Generates filler product images for the website and the app.
+// Run from the repo root with: npm run placeholders
 import { mkdirSync, writeFileSync } from "node:fs";
+
+const outDirs = ["apps/web/public/placeholders", "apps/mobile/assets/placeholders"];
 
 const subcategories = {
   tents: "Tents",
@@ -42,11 +44,11 @@ function svg(label, p) {
 `;
 }
 
-mkdirSync("public/placeholders", { recursive: true });
+for (const dir of outDirs) mkdirSync(dir, { recursive: true });
 for (const [slug, label] of Object.entries(subcategories)) {
   palettes.forEach((p, i) => {
     const name = i === 0 ? `${slug}.svg` : `${slug}-${i + 1}.svg`;
-    writeFileSync(`public/placeholders/${name}`, svg(label, p));
+    for (const dir of outDirs) writeFileSync(`${dir}/${name}`, svg(label, p));
   });
 }
 console.log(`Wrote ${Object.keys(subcategories).length * palettes.length} placeholders`);

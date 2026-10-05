@@ -107,7 +107,11 @@ Filler content: **about 8–10 products per category (about 30 total)**, with pl
 7. **Monorepo and Expo app:** browse screens first, then accounts, saved lists, and checklists
 8. **Price tracking and alerts:** once affiliate API access is approved
 
-**This round we build phases 1–5.**
+**Status:**
+- Phases 1–5: ✅ website done
+- Phase 6: skipped for now
+- Phase 7: ✅ monorepo, plus the Expo app with browse, search, saved lists and trip checklists (stored on the device)
+- Next: Supabase accounts and sync for lists and trips, deploying the site, then phase 8
 
 ## 8. Verification
 - `npm run build` passes, with no TypeScript or ESLint errors

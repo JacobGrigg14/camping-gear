@@ -1,0 +1,21 @@
+// Brand color tokens shared with the app. The website mirrors these in apps/web/src/app/globals.css.
+export const colors = {
+  forest50: "#f1f4ef",
+  forest100: "#dfe6da",
+  forest300: "#8a9a7b",
+  forest500: "#4f6b48",
+  forest700: "#3f5a3c",
+  forest800: "#2f4430",
+  forest900: "#1f2e20",
+  bark300: "#b08968",
+  bark500: "#7f5539",
+  bark700: "#5c3f2c",
+  bark900: "#2e2018",
+  canvas50: "#faf6ee",
+  canvas100: "#f3ecdc",
+  canvas200: "#e8dcc2",
+  canvas300: "#d9c9a8",
+  ember500: "#c8642a",
+  ember600: "#a9511f",
+  white: "#ffffff",
+} as const;
