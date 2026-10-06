@@ -1,17 +1,7 @@
-import {
-  addItem as addItemDb,
-  createTrip as createTripDb,
-  CUSTOM_SECTION,
-  deleteTrip as deleteTripDb,
-  fetchTrips,
-  removeItem as removeItemDb,
-  setItemChecked,
-  type Trip,
-  type TripItem,
-} from "@basecamp/shared";
+import { CUSTOM_SECTION, type Trip, type TripItem } from "@basecamp/shared";
 import { create } from "zustand";
+import { api } from "@/lib/api";
 import { showError } from "@/lib/confirm";
-import { supabase } from "@/lib/supabase";
 
 export { CUSTOM_SECTION };
 export type { Trip, TripItem };
@@ -34,11 +24,11 @@ function updateTrip(trips: Trip[], id: string, fn: (t: Trip) => Trip): Trip[] {
 }
 
 /**
- * The signed-in user's trip checklists, kept in Supabase.
+ * The signed-in user's trip checklists, kept on the website (Laravel API).
  * Changes show immediately and are rolled back if the write fails.
  */
 export const useTrips = create<TripsState>()((set, get) => {
-  async function optimistic(change: (trips: Trip[]) => Trip[], write: () => Promise<void>) {
+  async function optimistic(change: (trips: Trip[]) => Trip[], write: () => Promise<unknown>) {
     const previous = get().trips;
     set({ trips: change(previous) });
     try {
@@ -53,18 +43,18 @@ export const useTrips = create<TripsState>()((set, get) => {
     trips: [],
     loaded: false,
     load: async () => {
-      if (!supabase) return;
+      if (!api) return;
       try {
-        set({ trips: await fetchTrips(supabase), loaded: true });
+        set({ trips: await api.fetchTrips(), loaded: true });
       } catch {
         // Keep whatever we had; the next focus or sign-in retries.
       }
     },
     clear: () => set({ trips: [], loaded: false }),
     createTrip: async (name, templateId) => {
-      if (!supabase) return;
+      if (!api) return;
       try {
-        const trip = await createTripDb(supabase, name, templateId);
+        const trip = await api.createTrip(name, templateId);
         set((s) => ({ trips: [trip, ...s.trips] }));
         return trip.id;
       } catch {
@@ -72,43 +62,43 @@ export const useTrips = create<TripsState>()((set, get) => {
       }
     },
     deleteTrip: (id) => {
-      const sb = supabase;
-      if (!sb) return;
+      const client = api;
+      if (!client) return;
       optimistic(
         (trips) => trips.filter((t) => t.id !== id),
-        () => deleteTripDb(sb, id),
+        () => client.deleteTrip(id),
       );
     },
     toggleItem: (tripId, itemId) => {
-      const sb = supabase;
+      const client = api;
       const item = get()
         .trips.find((t) => t.id === tripId)
         ?.items.find((i) => i.id === itemId);
-      if (!sb || !item) return;
+      if (!client || !item) return;
       optimistic(
         (trips) =>
           updateTrip(trips, tripId, (t) => ({
             ...t,
             items: t.items.map((i) => (i.id === itemId ? { ...i, checked: !i.checked } : i)),
           })),
-        () => setItemChecked(sb, itemId, !item.checked),
+        () => client.setItemChecked(itemId, !item.checked),
       );
     },
     addItem: async (tripId, label) => {
-      if (!supabase) return;
+      if (!api) return;
       try {
-        const item = await addItemDb(supabase, tripId, label);
+        const item = await api.addItem(tripId, label);
         set((s) => ({ trips: updateTrip(s.trips, tripId, (t) => ({ ...t, items: [...t.items, item] })) }));
       } catch {
         showError("Couldn't add that item. Try again.");
       }
     },
     removeItem: (tripId, itemId) => {
-      const sb = supabase;
-      if (!sb) return;
+      const client = api;
+      if (!client) return;
       optimistic(
         (trips) => updateTrip(trips, tripId, (t) => ({ ...t, items: t.items.filter((i) => i.id !== itemId) })),
-        () => removeItemDb(sb, itemId),
+        () => client.removeItem(itemId),
       );
     },
   };

@@ -1,4 +1,3 @@
-import { getProductById } from "@basecamp/shared";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { FlatList, StyleSheet, View } from "react-native";
@@ -7,12 +6,14 @@ import { EmptyState } from "@/components/EmptyState";
 import { NamePrompt } from "@/components/NamePrompt";
 import { ProductCard } from "@/components/ProductCard";
 import { confirm } from "@/lib/confirm";
+import { useCatalog } from "@/store/catalog";
 import { useLists } from "@/store/lists";
 import { space } from "@/theme";
 
 export default function ListScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const list = useLists((s) => s.lists.find((l) => l.id === id));
+  const allProducts = useCatalog((s) => s.products);
   const renameList = useLists((s) => s.renameList);
   const deleteList = useLists((s) => s.deleteList);
   const [renaming, setRenaming] = useState(false);
@@ -20,7 +21,7 @@ export default function ListScreen() {
   if (!list) {
     return <EmptyState icon="albums-outline" title="List not found" message="This list may have been deleted." />;
   }
-  const products = list.productIds.map(getProductById).filter((p) => p !== undefined);
+  const products = list.productIds.map((pid) => allProducts.find((p) => p.id === pid)).filter((p) => p !== undefined);
   const editable = !list.isFavorites;
 
   return (

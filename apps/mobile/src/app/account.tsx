@@ -28,7 +28,7 @@ export default function AccountScreen() {
         <T variant="label" style={{ marginTop: space.md }}>
           Signed in with
         </T>
-        <T style={{ textTransform: "capitalize" }}>{user.app_metadata.provider ?? "email"}</T>
+        <T style={{ textTransform: "capitalize" }}>{user.signInMethod}</T>
       </View>
       <T variant="small">Your lists and trips are saved to your account and also show up on the website.</T>
       <Button

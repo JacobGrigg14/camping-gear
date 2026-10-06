@@ -1,0 +1,270 @@
+[
+  {
+    "id": "car-camping",
+    "name": "Weekend car camping",
+    "description": "Everything for two nights at a drive-in campsite.",
+    "sections": [
+      {
+        "title": "Shelter & sleep",
+        "items": [
+          {
+            "label": "Family tent",
+            "productSlug": "timberwolf-6p-cabin-tent"
+          },
+          {
+            "label": "Sleeping bags",
+            "gear": {
+              "category": "shelter-sleep",
+              "subcategory": "sleeping-bags"
+            }
+          },
+          {
+            "label": "Sleeping pads",
+            "productSlug": "ridgeline-self-inflating-camp-mat"
+          },
+          {
+            "label": "Pillows"
+          }
+        ]
+      },
+      {
+        "title": "Camp setup",
+        "items": [
+          {
+            "label": "Camp chairs",
+            "productSlug": "ridgeline-oversized-camp-chair"
+          },
+          {
+            "label": "Camp table",
+            "productSlug": "northfork-roll-top-camp-table"
+          },
+          {
+            "label": "Lantern",
+            "productSlug": "ember-glow-camp-lantern"
+          },
+          {
+            "label": "Headlamps",
+            "gear": {
+              "category": "lighting-tools-furniture",
+              "subcategory": "headlamps"
+            }
+          },
+          {
+            "label": "Multi-tool",
+            "productSlug": "cedar-stone-multi-tool"
+          }
+        ]
+      },
+      {
+        "title": "Kitchen & personal",
+        "items": [
+          {
+            "label": "Stove and fuel"
+          },
+          {
+            "label": "Cooler and ice"
+          },
+          {
+            "label": "Water jugs"
+          },
+          {
+            "label": "Rain jacket",
+            "gear": {
+              "category": "packs-clothing",
+              "subcategory": "jackets"
+            }
+          },
+          {
+            "label": "First-aid kit"
+          },
+          {
+            "label": "Sunscreen and bug spray"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "backpacking-overnight",
+    "name": "Backpacking overnight",
+    "description": "A light, dialed kit for one night on the trail.",
+    "sections": [
+      {
+        "title": "Big three",
+        "items": [
+          {
+            "label": "Backpack",
+            "productSlug": "summit-peak-55l-backpacking-pack"
+          },
+          {
+            "label": "Lightweight tent or hammock",
+            "gear": {
+              "category": "shelter-sleep",
+              "subcategory": "tents"
+            }
+          },
+          {
+            "label": "Sleeping bag",
+            "productSlug": "summit-peak-20-down-sleeping-bag"
+          },
+          {
+            "label": "Sleeping pad",
+            "productSlug": "northfork-air-insulated-sleeping-pad"
+          }
+        ]
+      },
+      {
+        "title": "Essentials",
+        "items": [
+          {
+            "label": "Headlamp",
+            "productSlug": "ember-400-rechargeable-headlamp"
+          },
+          {
+            "label": "Knife or multi-tool",
+            "gear": {
+              "category": "lighting-tools-furniture",
+              "subcategory": "knives"
+            }
+          },
+          {
+            "label": "Water filter"
+          },
+          {
+            "label": "Map and compass"
+          },
+          {
+            "label": "First-aid kit"
+          },
+          {
+            "label": "Fire starter"
+          }
+        ]
+      },
+      {
+        "title": "Clothing",
+        "items": [
+          {
+            "label": "Rain shell",
+            "productSlug": "northfork-storm-shell-rain-jacket"
+          },
+          {
+            "label": "Puffy jacket",
+            "productSlug": "summit-peak-down-puffy"
+          },
+          {
+            "label": "Hiking boots or trail runners",
+            "gear": {
+              "category": "packs-clothing",
+              "subcategory": "boots"
+            }
+          },
+          {
+            "label": "Extra socks"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "winter-camping",
+    "name": "Winter camping",
+    "description": "Stay warm and safe when temperatures drop below freezing.",
+    "sections": [
+      {
+        "title": "Shelter & sleep",
+        "items": [
+          {
+            "label": "4-season tent",
+            "productSlug": "northfork-4-season-dome"
+          },
+          {
+            "label": "Cold-rated sleeping bag",
+            "productSlug": "summit-peak-20-down-sleeping-bag"
+          },
+          {
+            "label": "Two sleeping pads (foam + inflatable)",
+            "gear": {
+              "category": "shelter-sleep",
+              "subcategory": "sleeping-pads"
+            }
+          }
+        ]
+      },
+      {
+        "title": "Clothing",
+        "items": [
+          {
+            "label": "Insulated boots",
+            "productSlug": "timberwolf-insulated-winter-boot"
+          },
+          {
+            "label": "Down jacket",
+            "productSlug": "summit-peak-down-puffy"
+          },
+          {
+            "label": "Fleece midlayer",
+            "productSlug": "timberwolf-fleece-pullover"
+          },
+          {
+            "label": "Waterproof shell",
+            "gear": {
+              "category": "packs-clothing",
+              "subcategory": "jackets"
+            }
+          },
+          {
+            "label": "Warm hat and gloves"
+          }
+        ]
+      },
+      {
+        "title": "Gear",
+        "items": [
+          {
+            "label": "Backpack",
+            "gear": {
+              "category": "packs-clothing",
+              "subcategory": "backpacks"
+            }
+          },
+          {
+            "label": "Headlamp + spare batteries",
+            "gear": {
+              "category": "lighting-tools-furniture",
+              "subcategory": "headlamps"
+            }
+          },
+          {
+            "label": "Lantern",
+            "gear": {
+              "category": "lighting-tools-furniture",
+              "subcategory": "lanterns"
+            }
+          },
+          {
+            "label": "Hatchet for firewood",
+            "productSlug": "cedar-stone-camp-hatchet"
+          },
+          {
+            "label": "Camp chair",
+            "gear": {
+              "category": "lighting-tools-furniture",
+              "subcategory": "chairs"
+            }
+          },
+          {
+            "label": "Table",
+            "gear": {
+              "category": "lighting-tools-furniture",
+              "subcategory": "tables"
+            }
+          },
+          {
+            "label": "Insulated water bottle"
+          }
+        ]
+      }
+    ]
+  }
+]

@@ -10,8 +10,12 @@ import { DefaultTheme, Stack, ThemeProvider } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
 import { useEffect } from "react";
+import { View } from "react-native";
+import { Button } from "@/components/Button";
+import { T } from "@/components/T";
 import { useAuth } from "@/store/auth";
-import { colors, headerOptions } from "@/theme";
+import { useCatalog } from "@/store/catalog";
+import { colors, headerOptions, space } from "@/theme";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -38,12 +42,15 @@ export default function RootLayout() {
   });
 
   const authReady = useAuth((s) => s.ready);
+  const catalogStatus = useCatalog((s) => s.status);
+  const ready = (loaded || error) && authReady && catalogStatus !== "loading";
   useEffect(() => {
-    if ((loaded || error) && authReady) SplashScreen.hideAsync();
-  }, [loaded, error, authReady]);
+    if (ready) SplashScreen.hideAsync();
+  }, [ready]);
 
-  // Wait for fonts and the stored session, so saved hearts don't flicker on launch.
-  if ((!loaded && !error) || !authReady) return null;
+  // Wait for fonts, the stored session and the catalog (cached or fresh), so nothing flickers on launch.
+  if (!ready) return null;
+  if (catalogStatus === "error") return <CatalogError />;
 
   return (
     <ThemeProvider value={theme}>
@@ -60,5 +67,21 @@ export default function RootLayout() {
         <Stack.Screen name="auth/callback" options={{ headerShown: false }} />
       </Stack>
     </ThemeProvider>
+  );
+}
+
+/** First launch with no connection (nothing cached yet), or the API URL isn't set. */
+function CatalogError() {
+  const message = useCatalog((s) => s.error);
+  const load = useCatalog((s) => s.load);
+  return (
+    <View
+      style={{ flex: 1, justifyContent: "center", padding: space.xl, gap: space.lg, backgroundColor: colors.canvas50 }}
+    >
+      <StatusBar style="dark" />
+      <T variant="h2">Couldn&apos;t load the gear</T>
+      <T>{message}</T>
+      <Button title="Try again" onPress={load} />
+    </View>
   );
 }

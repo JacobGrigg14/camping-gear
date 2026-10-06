@@ -1,11 +1,11 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { getProduct } from "@basecamp/shared";
 import { router, Stack, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
 import { Pressable, SectionList, StyleSheet, TextInput, View } from "react-native";
 import { Button } from "@/components/Button";
 import { T } from "@/components/T";
 import { confirm } from "@/lib/confirm";
+import { useProduct } from "@/store/catalog";
 import { CUSTOM_SECTION, useTrips, type TripItem } from "@/store/trips";
 import { colors, fonts, radius, space } from "@/theme";
 
@@ -89,7 +89,7 @@ export default function TripScreen() {
 }
 
 function ItemRow({ item, onToggle, onRemove }: { item: TripItem; onToggle: () => void; onRemove?: () => void }) {
-  const product = item.productSlug ? getProduct(item.productSlug) : undefined;
+  const product = useProduct(item.productSlug ?? undefined);
   const openPick = () => {
     if (product) router.push(`/product/${product.slug}`);
     else if (item.gear)

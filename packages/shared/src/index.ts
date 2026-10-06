@@ -5,4 +5,4 @@ export * from "./retailers";
 export * from "./site";
 export * from "./checklists";
 export * from "./theme";
-export * from "./db";
+export * from "./api";

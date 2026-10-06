@@ -1,15 +1,16 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { getProducts, searchProducts } from "@basecamp/shared";
+import { searchProducts } from "@basecamp/shared";
 import { useMemo, useState } from "react";
 import { FlatList, StyleSheet, TextInput, View } from "react-native";
 import { EmptyState } from "@/components/EmptyState";
 import { ProductCard } from "@/components/ProductCard";
 import { T } from "@/components/T";
+import { useCatalog } from "@/store/catalog";
 import { colors, fonts, radius, space } from "@/theme";
 
 export default function SearchScreen() {
   const [query, setQuery] = useState("");
-  const products = getProducts();
+  const products = useCatalog((s) => s.products);
   const results = useMemo(() => searchProducts(products, query), [products, query]);
   const hasQuery = query.trim().length > 0;
 

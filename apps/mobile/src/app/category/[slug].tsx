@@ -1,4 +1,4 @@
-import { getCategory, getProductsByCategory, type Product } from "@basecamp/shared";
+import type { Product } from "@basecamp/shared";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { useMemo, useState } from "react";
 import { FlatList, ScrollView, StyleSheet, View } from "react-native";
@@ -7,6 +7,7 @@ import { DisclosureNote } from "@/components/DisclosureNote";
 import { EmptyState } from "@/components/EmptyState";
 import { ProductCard } from "@/components/ProductCard";
 import { T } from "@/components/T";
+import { useCatalog, useCategory } from "@/store/catalog";
 import { colors, space } from "@/theme";
 
 type Sort = "rating" | "price-asc" | "price-desc";
@@ -27,14 +28,15 @@ function sortProducts(list: Product[], sort: Sort): Product[] {
 
 export default function CategoryScreen() {
   const { slug, subcategory: initialSub } = useLocalSearchParams<{ slug: string; subcategory?: string }>();
-  const category = getCategory(slug);
+  const category = useCategory(slug);
+  const allProducts = useCatalog((s) => s.products);
   const [subcategory, setSubcategory] = useState(initialSub ?? "");
   const [sort, setSort] = useState<Sort>("rating");
 
   const products = useMemo(() => {
-    const all = getProductsByCategory(slug);
+    const all = allProducts.filter((p) => p.category === slug);
     return sortProducts(subcategory ? all.filter((p) => p.subcategory === subcategory) : all, sort);
-  }, [slug, subcategory, sort]);
+  }, [allProducts, slug, subcategory, sort]);
 
   if (!category) {
     return <EmptyState icon="alert-circle-outline" title="Category not found" message="This category doesn't exist." />;

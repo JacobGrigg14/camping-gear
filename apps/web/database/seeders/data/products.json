@@ -1,0 +1,1019 @@
+[
+  {
+    "id": "ss-001",
+    "slug": "ridgeline-2p-backpacking-tent",
+    "name": "Ridgeline 2P Backpacking Tent",
+    "brand": "Ridgeline",
+    "category": "shelter-sleep",
+    "subcategory": "tents",
+    "shortDescription": "Lightweight freestanding two-person tent for three-season trips.",
+    "description": "Placeholder description. The Ridgeline 2P balances weight and livable space with two doors, two vestibules and a color-coded pole system that pitches in minutes, even in the dark.",
+    "images": ["/placeholders/tents.svg", "/placeholders/tents-2.svg", "/placeholders/tents-3.svg"],
+    "priceTier": "$$$",
+    "rating": 4.7,
+    "specs": {
+      "Capacity": "2 person",
+      "Weight": "3 lb 8 oz",
+      "Seasons": "3-season",
+      "Floor area": "29 sq ft",
+      "Peak height": "40 in"
+    },
+    "pros": ["Two doors and vestibules", "Fast, intuitive pitch", "Packs down small"],
+    "cons": ["Thin floor, footprint recommended", "Tight for taller campers"],
+    "links": [
+      {
+        "retailer": "amazon",
+        "url": ""
+      },
+      {
+        "retailer": "rei",
+        "url": ""
+      },
+      {
+        "retailer": "backcountry",
+        "url": ""
+      }
+    ],
+    "featured": true,
+    "tags": ["backpacking", "lightweight", "3-season"]
+  },
+  {
+    "id": "ss-002",
+    "slug": "timberwolf-6p-cabin-tent",
+    "name": "Timberwolf 6P Cabin Tent",
+    "brand": "Timberwolf Gear",
+    "category": "shelter-sleep",
+    "subcategory": "tents",
+    "shortDescription": "Roomy near-vertical-wall cabin tent for family car camping.",
+    "description": "Placeholder description. Stand up, spread out and bring the cots. The Timberwolf 6P has near-vertical walls, a room divider and a full rainfly for wet weekends at the campground.",
+    "images": ["/placeholders/tents.svg", "/placeholders/tents-2.svg", "/placeholders/tents-3.svg"],
+    "priceTier": "$$",
+    "rating": 4.4,
+    "specs": {
+      "Capacity": "6 person",
+      "Weight": "18 lb",
+      "Seasons": "3-season",
+      "Floor area": "90 sq ft",
+      "Peak height": "78 in"
+    },
+    "pros": ["Tons of headroom", "Room divider", "Great value"],
+    "cons": ["Heavy and bulky", "Struggles in high wind"],
+    "links": [
+      {
+        "retailer": "amazon",
+        "url": ""
+      },
+      {
+        "retailer": "bass-pro",
+        "url": ""
+      },
+      {
+        "retailer": "cabelas",
+        "url": ""
+      }
+    ],
+    "tags": ["car camping", "family"]
+  },
+  {
+    "id": "ss-003",
+    "slug": "northfork-4-season-dome",
+    "name": "Northfork Expedition 4-Season Dome",
+    "brand": "Northfork",
+    "category": "shelter-sleep",
+    "subcategory": "tents",
+    "shortDescription": "Bombproof dome built for snow loads and alpine wind.",
+    "description": "Placeholder description. A crisscross pole geometry and full-coverage fly let the Expedition shrug off heavy snow and gusty ridgelines when the weather turns.",
+    "images": ["/placeholders/tents.svg", "/placeholders/tents-2.svg", "/placeholders/tents-3.svg"],
+    "priceTier": "$$$$",
+    "rating": 4.8,
+    "specs": {
+      "Capacity": "3 person",
+      "Weight": "8 lb 2 oz",
+      "Seasons": "4-season",
+      "Floor area": "42 sq ft",
+      "Peak height": "44 in"
+    },
+    "pros": ["Extremely stable in wind", "Snow skirts", "Durable materials"],
+    "cons": ["Expensive", "Overkill for summer"],
+    "links": [
+      {
+        "retailer": "rei",
+        "url": ""
+      },
+      {
+        "retailer": "backcountry",
+        "url": ""
+      }
+    ],
+    "tags": ["winter", "mountaineering", "4-season"]
+  },
+  {
+    "id": "ss-004",
+    "slug": "canopy-trail-hammock-system",
+    "name": "Canopy Trail Hammock System",
+    "brand": "Canopy Co.",
+    "category": "shelter-sleep",
+    "subcategory": "hammocks",
+    "shortDescription": "All-in-one hammock with bug net and tree straps.",
+    "description": "Placeholder description. A complete hang setup with an integrated zippered bug net, ridgeline and tree-friendly straps. Just add a tarp for rain.",
+    "images": ["/placeholders/hammocks.svg", "/placeholders/hammocks-2.svg", "/placeholders/hammocks-3.svg"],
+    "priceTier": "$$",
+    "rating": 4.5,
+    "specs": {
+      "Weight": "1 lb 12 oz",
+      "Capacity": "300 lb",
+      "Length": "10 ft",
+      "Bug net": "Integrated"
+    },
+    "pros": ["Fast setup", "Bug net included", "Comfortable diagonal lay"],
+    "cons": ["Tarp sold separately"],
+    "links": [
+      {
+        "retailer": "amazon",
+        "url": ""
+      },
+      {
+        "retailer": "rei",
+        "url": ""
+      }
+    ],
+    "featured": true,
+    "tags": ["hammock", "backpacking"]
+  },
+  {
+    "id": "ss-005",
+    "slug": "canopy-lounger-double-hammock",
+    "name": "Canopy Lounger Double Hammock",
+    "brand": "Canopy Co.",
+    "category": "shelter-sleep",
+    "subcategory": "hammocks",
+    "shortDescription": "Wide parachute-nylon hammock for lounging at camp.",
+    "description": "Placeholder description. Extra-wide and stuffs into its own pouch. Ideal for afternoons by the lake.",
+    "images": ["/placeholders/hammocks.svg", "/placeholders/hammocks-2.svg", "/placeholders/hammocks-3.svg"],
+    "priceTier": "$",
+    "rating": 4.2,
+    "specs": {
+      "Weight": "1 lb 4 oz",
+      "Capacity": "400 lb",
+      "Width": "6.5 ft"
+    },
+    "pros": ["Inexpensive", "Packs tiny"],
+    "cons": ["No bug protection", "Straps sold separately"],
+    "links": [
+      {
+        "retailer": "amazon",
+        "url": ""
+      },
+      {
+        "retailer": "bass-pro",
+        "url": ""
+      },
+      {
+        "retailer": "cabelas",
+        "url": ""
+      }
+    ],
+    "tags": ["hammock", "budget"]
+  },
+  {
+    "id": "ss-006",
+    "slug": "summit-peak-20-down-sleeping-bag",
+    "name": "Summit Peak 20° Down Sleeping Bag",
+    "brand": "Summit Peak",
+    "category": "shelter-sleep",
+    "subcategory": "sleeping-bags",
+    "shortDescription": "Lofty 800-fill down mummy bag for cold shoulder seasons.",
+    "description": "Placeholder description. Water-resistant 800-fill down, a contoured hood and a draft collar keep the Summit Peak 20 warm and light on cold nights.",
+    "images": [
+      "/placeholders/sleeping-bags.svg",
+      "/placeholders/sleeping-bags-2.svg",
+      "/placeholders/sleeping-bags-3.svg"
+    ],
+    "priceTier": "$$$",
+    "rating": 4.8,
+    "specs": {
+      "Temp rating": "20°F",
+      "Fill": "800-fill down",
+      "Weight": "2 lb 1 oz",
+      "Shape": "Mummy"
+    },
+    "pros": ["Excellent warmth-to-weight", "Compresses small", "Draft collar"],
+    "cons": ["Pricey", "Down loses loft if soaked"],
+    "links": [
+      {
+        "retailer": "amazon",
+        "url": ""
+      },
+      {
+        "retailer": "rei",
+        "url": ""
+      },
+      {
+        "retailer": "backcountry",
+        "url": ""
+      }
+    ],
+    "featured": true,
+    "tags": ["down", "backpacking", "cold weather"]
+  },
+  {
+    "id": "ss-007",
+    "slug": "timberwolf-30-rectangular-sleeping-bag",
+    "name": "Timberwolf 30° Rectangular Bag",
+    "brand": "Timberwolf Gear",
+    "category": "shelter-sleep",
+    "subcategory": "sleeping-bags",
+    "shortDescription": "Roomy synthetic bag that unzips into a blanket.",
+    "description": "Placeholder description. A comfortable flannel-lined rectangular bag for car camping that unzips fully into a quilt.",
+    "images": [
+      "/placeholders/sleeping-bags.svg",
+      "/placeholders/sleeping-bags-2.svg",
+      "/placeholders/sleeping-bags-3.svg"
+    ],
+    "priceTier": "$",
+    "rating": 4.1,
+    "specs": {
+      "Temp rating": "30°F",
+      "Fill": "Synthetic",
+      "Weight": "4 lb 8 oz",
+      "Shape": "Rectangular"
+    },
+    "pros": ["Roomy", "Affordable", "Machine washable"],
+    "cons": ["Heavy and bulky"],
+    "links": [
+      {
+        "retailer": "amazon",
+        "url": ""
+      },
+      {
+        "retailer": "bass-pro",
+        "url": ""
+      },
+      {
+        "retailer": "cabelas",
+        "url": ""
+      }
+    ],
+    "tags": ["car camping", "budget", "synthetic"]
+  },
+  {
+    "id": "ss-008",
+    "slug": "northfork-air-insulated-sleeping-pad",
+    "name": "Northfork Air Insulated Sleeping Pad",
+    "brand": "Northfork",
+    "category": "shelter-sleep",
+    "subcategory": "sleeping-pads",
+    "shortDescription": "R-4.2 inflatable pad that's warm enough for three seasons.",
+    "description": "Placeholder description. Baffled construction and reflective insulation give a thick, quiet, warm night's sleep at under a pound.",
+    "images": [
+      "/placeholders/sleeping-pads.svg",
+      "/placeholders/sleeping-pads-2.svg",
+      "/placeholders/sleeping-pads-3.svg"
+    ],
+    "priceTier": "$$$",
+    "rating": 4.6,
+    "specs": {
+      "R-value": "4.2",
+      "Thickness": "3 in",
+      "Weight": "15 oz",
+      "Length": "72 in"
+    },
+    "pros": ["Warm and light", "Quiet fabric", "Pump sack included"],
+    "cons": ["Can puncture, carry a patch kit"],
+    "links": [
+      {
+        "retailer": "amazon",
+        "url": ""
+      },
+      {
+        "retailer": "rei",
+        "url": ""
+      },
+      {
+        "retailer": "backcountry",
+        "url": ""
+      }
+    ],
+    "tags": ["backpacking", "inflatable"]
+  },
+  {
+    "id": "ss-009",
+    "slug": "ridgeline-self-inflating-camp-mat",
+    "name": "Ridgeline Self-Inflating Camp Mat",
+    "brand": "Ridgeline",
+    "category": "shelter-sleep",
+    "subcategory": "sleeping-pads",
+    "shortDescription": "Thick foam-core mat for comfortable car camping.",
+    "description": "Placeholder description. Open the valve and the foam core does most of the work. A plush 4 inches for the campground.",
+    "images": [
+      "/placeholders/sleeping-pads.svg",
+      "/placeholders/sleeping-pads-2.svg",
+      "/placeholders/sleeping-pads-3.svg"
+    ],
+    "priceTier": "$$",
+    "rating": 4.3,
+    "specs": {
+      "R-value": "6.0",
+      "Thickness": "4 in",
+      "Weight": "4 lb 10 oz",
+      "Length": "77 in"
+    },
+    "pros": ["Very comfortable", "Durable", "Warm"],
+    "cons": ["Too heavy for backpacking"],
+    "links": [
+      {
+        "retailer": "amazon",
+        "url": ""
+      },
+      {
+        "retailer": "bass-pro",
+        "url": ""
+      },
+      {
+        "retailer": "cabelas",
+        "url": ""
+      },
+      {
+        "retailer": "rei",
+        "url": ""
+      }
+    ],
+    "tags": ["car camping", "foam"]
+  },
+  {
+    "id": "pc-001",
+    "slug": "summit-peak-55l-backpacking-pack",
+    "name": "Summit Peak 55L Backpacking Pack",
+    "brand": "Summit Peak",
+    "category": "packs-clothing",
+    "subcategory": "backpacks",
+    "shortDescription": "Ventilated trail pack that carries 35 lb with ease.",
+    "description": "Placeholder description. A suspended mesh back panel, adjustable torso and plenty of pockets make the 55L a do-everything multi-day pack.",
+    "images": ["/placeholders/backpacks.svg", "/placeholders/backpacks-2.svg", "/placeholders/backpacks-3.svg"],
+    "priceTier": "$$$",
+    "rating": 4.7,
+    "specs": {
+      "Volume": "55 L",
+      "Weight": "3 lb 6 oz",
+      "Torso range": "16–21 in",
+      "Load range": "Up to 40 lb"
+    },
+    "pros": ["Excellent ventilation", "Adjustable fit", "Smart pocket layout"],
+    "cons": ["Heavier than ultralight packs"],
+    "links": [
+      {
+        "retailer": "amazon",
+        "url": ""
+      },
+      {
+        "retailer": "rei",
+        "url": ""
+      },
+      {
+        "retailer": "backcountry",
+        "url": ""
+      }
+    ],
+    "featured": true,
+    "tags": ["backpacking", "multi-day"]
+  },
+  {
+    "id": "pc-002",
+    "slug": "ridgeline-ul-40-frameless-pack",
+    "name": "Ridgeline UL 40 Frameless Pack",
+    "brand": "Ridgeline",
+    "category": "packs-clothing",
+    "subcategory": "backpacks",
+    "shortDescription": "Minimalist ultralight pack for fast-and-light trips.",
+    "description": "Placeholder description. Under a pound with a roll-top closure and big stretch mesh front pocket, built for thru-hikers with a dialed kit.",
+    "images": ["/placeholders/backpacks.svg", "/placeholders/backpacks-2.svg", "/placeholders/backpacks-3.svg"],
+    "priceTier": "$$",
+    "rating": 4.4,
+    "specs": {
+      "Volume": "40 L",
+      "Weight": "15 oz",
+      "Frame": "Frameless",
+      "Load range": "Up to 20 lb"
+    },
+    "pros": ["Very light", "Simple and durable"],
+    "cons": ["Uncomfortable with heavy loads"],
+    "links": [
+      {
+        "retailer": "amazon",
+        "url": ""
+      },
+      {
+        "retailer": "backcountry",
+        "url": ""
+      }
+    ],
+    "tags": ["ultralight", "thru-hiking"]
+  },
+  {
+    "id": "pc-003",
+    "slug": "timberwolf-24l-daypack",
+    "name": "Timberwolf 24L Daypack",
+    "brand": "Timberwolf Gear",
+    "category": "packs-clothing",
+    "subcategory": "backpacks",
+    "shortDescription": "Hydration-compatible daypack for hikes and travel.",
+    "description": "Placeholder description. A comfortable everyday daypack with a hydration sleeve, hip belt pockets and a rain cover tucked in the base.",
+    "images": ["/placeholders/backpacks.svg", "/placeholders/backpacks-2.svg", "/placeholders/backpacks-3.svg"],
+    "priceTier": "$",
+    "rating": 4.3,
+    "specs": {
+      "Volume": "24 L",
+      "Weight": "1 lb 9 oz",
+      "Hydration": "Compatible",
+      "Rain cover": "Included"
+    },
+    "pros": ["Rain cover included", "Affordable", "Comfortable"],
+    "cons": ["Hip belt is minimal"],
+    "links": [
+      {
+        "retailer": "amazon",
+        "url": ""
+      },
+      {
+        "retailer": "bass-pro",
+        "url": ""
+      },
+      {
+        "retailer": "cabelas",
+        "url": ""
+      }
+    ],
+    "tags": ["day hiking", "budget"]
+  },
+  {
+    "id": "pc-004",
+    "slug": "northfork-storm-shell-rain-jacket",
+    "name": "Northfork Storm Shell Rain Jacket",
+    "brand": "Northfork",
+    "category": "packs-clothing",
+    "subcategory": "jackets",
+    "shortDescription": "Breathable 3-layer waterproof shell for foul weather.",
+    "description": "Placeholder description. Fully taped seams, pit zips and a helmet-compatible hood make the Storm Shell our go-to for wet mountain days.",
+    "images": ["/placeholders/jackets.svg", "/placeholders/jackets-2.svg", "/placeholders/jackets-3.svg"],
+    "priceTier": "$$$",
+    "rating": 4.6,
+    "specs": {
+      "Waterproofing": "3-layer membrane",
+      "Weight": "12 oz",
+      "Vents": "Pit zips",
+      "Hood": "Helmet compatible"
+    },
+    "pros": ["Truly waterproof", "Breathes well", "Packs into pocket"],
+    "cons": ["Trim fit over bulky layers"],
+    "links": [
+      {
+        "retailer": "amazon",
+        "url": ""
+      },
+      {
+        "retailer": "rei",
+        "url": ""
+      },
+      {
+        "retailer": "backcountry",
+        "url": ""
+      }
+    ],
+    "featured": true,
+    "tags": ["rain", "shell", "waterproof"]
+  },
+  {
+    "id": "pc-005",
+    "slug": "summit-peak-down-puffy",
+    "name": "Summit Peak Down Puffy",
+    "brand": "Summit Peak",
+    "category": "packs-clothing",
+    "subcategory": "jackets",
+    "shortDescription": "Packable 800-fill down jacket for camp and belays.",
+    "description": "Placeholder description. Warm, light and stuffable. The puffy you'll pull on the minute the sun drops behind the ridge.",
+    "images": ["/placeholders/jackets.svg", "/placeholders/jackets-2.svg", "/placeholders/jackets-3.svg"],
+    "priceTier": "$$$",
+    "rating": 4.7,
+    "specs": {
+      "Fill": "800-fill down",
+      "Weight": "10 oz",
+      "Packed size": "Fits in pocket"
+    },
+    "pros": ["Superb warmth-to-weight", "Packs tiny"],
+    "cons": ["Delicate shell fabric"],
+    "links": [
+      {
+        "retailer": "rei",
+        "url": ""
+      },
+      {
+        "retailer": "backcountry",
+        "url": ""
+      }
+    ],
+    "tags": ["insulation", "down"]
+  },
+  {
+    "id": "pc-006",
+    "slug": "timberwolf-fleece-pullover",
+    "name": "Timberwolf Grid Fleece Pullover",
+    "brand": "Timberwolf Gear",
+    "category": "packs-clothing",
+    "subcategory": "jackets",
+    "shortDescription": "Breathable midlayer for active cold-weather days.",
+    "description": "Placeholder description. A grid-fleece quarter-zip that breathes while you move and adds warmth under a shell.",
+    "images": ["/placeholders/jackets.svg", "/placeholders/jackets-2.svg", "/placeholders/jackets-3.svg"],
+    "priceTier": "$",
+    "rating": 4.2,
+    "specs": {
+      "Material": "Grid fleece",
+      "Weight": "11 oz",
+      "Zip": "Quarter zip"
+    },
+    "pros": ["Very breathable", "Affordable"],
+    "cons": ["Not windproof"],
+    "links": [
+      {
+        "retailer": "amazon",
+        "url": ""
+      },
+      {
+        "retailer": "bass-pro",
+        "url": ""
+      },
+      {
+        "retailer": "cabelas",
+        "url": ""
+      }
+    ],
+    "tags": ["fleece", "midlayer"]
+  },
+  {
+    "id": "pc-007",
+    "slug": "ridgeline-mid-waterproof-hiking-boot",
+    "name": "Ridgeline Mid Waterproof Hiking Boot",
+    "brand": "Ridgeline",
+    "category": "packs-clothing",
+    "subcategory": "boots",
+    "shortDescription": "Supportive waterproof mid boot that needs little break-in.",
+    "description": "Placeholder description. A waterproof membrane, grippy lugged outsole and supportive ankle collar for rocky trails.",
+    "images": ["/placeholders/boots.svg", "/placeholders/boots-2.svg", "/placeholders/boots-3.svg"],
+    "priceTier": "$$",
+    "rating": 4.5,
+    "specs": {
+      "Height": "Mid",
+      "Waterproof": "Yes",
+      "Weight": "2 lb 4 oz (pair)",
+      "Drop": "12 mm"
+    },
+    "pros": ["Comfortable out of the box", "Good ankle support", "Grippy"],
+    "cons": ["Runs warm in summer"],
+    "links": [
+      {
+        "retailer": "amazon",
+        "url": ""
+      },
+      {
+        "retailer": "bass-pro",
+        "url": ""
+      },
+      {
+        "retailer": "cabelas",
+        "url": ""
+      },
+      {
+        "retailer": "rei",
+        "url": ""
+      }
+    ],
+    "featured": true,
+    "tags": ["hiking", "waterproof"]
+  },
+  {
+    "id": "pc-008",
+    "slug": "northfork-trail-runner",
+    "name": "Northfork Trail Runner",
+    "brand": "Northfork",
+    "category": "packs-clothing",
+    "subcategory": "boots",
+    "shortDescription": "Light, fast-drying trail shoe for long miles.",
+    "description": "Placeholder description. A wide toe box and cushioned midsole for long days. Drains and dries fast after creek crossings.",
+    "images": ["/placeholders/boots.svg", "/placeholders/boots-2.svg", "/placeholders/boots-3.svg"],
+    "priceTier": "$$",
+    "rating": 4.4,
+    "specs": {
+      "Height": "Low",
+      "Waterproof": "No",
+      "Weight": "1 lb 6 oz (pair)",
+      "Drop": "0 mm"
+    },
+    "pros": ["Lightweight", "Dries quickly", "Roomy toe box"],
+    "cons": ["Less durable than boots"],
+    "links": [
+      {
+        "retailer": "amazon",
+        "url": ""
+      },
+      {
+        "retailer": "rei",
+        "url": ""
+      },
+      {
+        "retailer": "backcountry",
+        "url": ""
+      }
+    ],
+    "tags": ["trail running", "thru-hiking"]
+  },
+  {
+    "id": "pc-009",
+    "slug": "timberwolf-insulated-winter-boot",
+    "name": "Timberwolf Insulated Winter Boot",
+    "brand": "Timberwolf Gear",
+    "category": "packs-clothing",
+    "subcategory": "boots",
+    "shortDescription": "400g insulated boot for snowshoeing and ice fishing.",
+    "description": "Placeholder description. Waterproof leather, 400g of insulation and a cold-weather rubber outsole keep toes warm well below freezing.",
+    "images": ["/placeholders/boots.svg", "/placeholders/boots-2.svg", "/placeholders/boots-3.svg"],
+    "priceTier": "$$$",
+    "rating": 4.3,
+    "specs": {
+      "Insulation": "400g synthetic",
+      "Waterproof": "Yes",
+      "Weight": "3 lb 10 oz (pair)",
+      "Rated to": "-25°F"
+    },
+    "pros": ["Very warm", "Waterproof"],
+    "cons": ["Heavy"],
+    "links": [
+      {
+        "retailer": "bass-pro",
+        "url": ""
+      },
+      {
+        "retailer": "cabelas",
+        "url": ""
+      }
+    ],
+    "tags": ["winter", "insulated", "hunting"]
+  },
+  {
+    "id": "lt-001",
+    "slug": "ember-400-rechargeable-headlamp",
+    "name": "Ember 400 Rechargeable Headlamp",
+    "brand": "Ember Lighting",
+    "category": "lighting-tools-furniture",
+    "subcategory": "headlamps",
+    "shortDescription": "400-lumen USB-C headlamp with red night mode.",
+    "description": "Placeholder description. Bright flood and spot beams, a red mode to protect night vision, and a lock-out so it won't turn on in your pack.",
+    "images": ["/placeholders/headlamps.svg", "/placeholders/headlamps-2.svg", "/placeholders/headlamps-3.svg"],
+    "priceTier": "$$",
+    "rating": 4.7,
+    "specs": {
+      "Output": "400 lumens",
+      "Battery": "Rechargeable USB-C",
+      "Runtime": "Up to 40 hr",
+      "Waterproof": "IPX4",
+      "Weight": "2.9 oz"
+    },
+    "pros": ["Bright", "USB-C charging", "Lock-out mode"],
+    "cons": ["Battery not swappable"],
+    "links": [
+      {
+        "retailer": "amazon",
+        "url": ""
+      },
+      {
+        "retailer": "rei",
+        "url": ""
+      },
+      {
+        "retailer": "bass-pro",
+        "url": ""
+      }
+    ],
+    "featured": true,
+    "tags": ["headlamp", "rechargeable"]
+  },
+  {
+    "id": "lt-002",
+    "slug": "ember-trail-200-headlamp",
+    "name": "Ember Trail 200 Headlamp",
+    "brand": "Ember Lighting",
+    "category": "lighting-tools-furniture",
+    "subcategory": "headlamps",
+    "shortDescription": "Simple, affordable AAA headlamp for every pack.",
+    "description": "Placeholder description. A no-fuss headlamp that runs on AAA batteries you can buy anywhere.",
+    "images": ["/placeholders/headlamps.svg", "/placeholders/headlamps-2.svg", "/placeholders/headlamps-3.svg"],
+    "priceTier": "$",
+    "rating": 4.2,
+    "specs": {
+      "Output": "200 lumens",
+      "Battery": "3x AAA",
+      "Runtime": "Up to 60 hr",
+      "Waterproof": "IPX4",
+      "Weight": "2.4 oz"
+    },
+    "pros": ["Cheap", "Easy-to-find batteries"],
+    "cons": ["Dimmer than rechargeables"],
+    "links": [
+      {
+        "retailer": "amazon",
+        "url": ""
+      },
+      {
+        "retailer": "bass-pro",
+        "url": ""
+      },
+      {
+        "retailer": "cabelas",
+        "url": ""
+      }
+    ],
+    "tags": ["headlamp", "budget"]
+  },
+  {
+    "id": "lt-003",
+    "slug": "ember-glow-camp-lantern",
+    "name": "Ember Glow Camp Lantern",
+    "brand": "Ember Lighting",
+    "category": "lighting-tools-furniture",
+    "subcategory": "lanterns",
+    "shortDescription": "Warm dimmable LED lantern that doubles as a power bank.",
+    "description": "Placeholder description. A 500-lumen lantern with warm-white light, a hanging hook and a USB port to top up your phone.",
+    "images": ["/placeholders/lanterns.svg", "/placeholders/lanterns-2.svg", "/placeholders/lanterns-3.svg"],
+    "priceTier": "$$",
+    "rating": 4.6,
+    "specs": {
+      "Output": "500 lumens",
+      "Battery": "Rechargeable 5200 mAh",
+      "Runtime": "Up to 80 hr",
+      "Power bank": "Yes"
+    },
+    "pros": ["Pleasant warm light", "Charges devices", "Long runtime"],
+    "cons": ["Bulky for backpacking"],
+    "links": [
+      {
+        "retailer": "amazon",
+        "url": ""
+      },
+      {
+        "retailer": "bass-pro",
+        "url": ""
+      },
+      {
+        "retailer": "cabelas",
+        "url": ""
+      },
+      {
+        "retailer": "rei",
+        "url": ""
+      }
+    ],
+    "featured": true,
+    "tags": ["lantern", "car camping", "rechargeable"]
+  },
+  {
+    "id": "lt-004",
+    "slug": "canopy-string-lights",
+    "name": "Canopy Camp String Lights",
+    "brand": "Canopy Co.",
+    "category": "lighting-tools-furniture",
+    "subcategory": "lanterns",
+    "shortDescription": "30 ft of rechargeable string lights for the campsite.",
+    "description": "Placeholder description. Turn any campsite cozy. Rechargeable, with multiple modes and a waterproof controller.",
+    "images": ["/placeholders/lanterns.svg", "/placeholders/lanterns-2.svg", "/placeholders/lanterns-3.svg"],
+    "priceTier": "$",
+    "rating": 4.1,
+    "specs": {
+      "Length": "30 ft",
+      "Battery": "Rechargeable",
+      "Modes": "4"
+    },
+    "pros": ["Great ambiance", "Inexpensive"],
+    "cons": ["Tangles easily"],
+    "links": [
+      {
+        "retailer": "amazon",
+        "url": ""
+      }
+    ],
+    "tags": ["lighting", "car camping"]
+  },
+  {
+    "id": "lt-005",
+    "slug": "cedar-stone-bushcraft-knife",
+    "name": "Cedar & Stone Bushcraft Knife",
+    "brand": "Cedar & Stone",
+    "category": "lighting-tools-furniture",
+    "subcategory": "knives",
+    "shortDescription": "Full-tang carbon steel knife with a leather sheath.",
+    "description": "Placeholder description. A 4-inch Scandi-ground carbon steel blade that's easy to sharpen and throws sparks from a ferro rod.",
+    "images": ["/placeholders/knives.svg", "/placeholders/knives-2.svg", "/placeholders/knives-3.svg"],
+    "priceTier": "$$",
+    "rating": 4.7,
+    "specs": {
+      "Blade length": "4 in",
+      "Steel": "1095 carbon",
+      "Tang": "Full",
+      "Sheath": "Leather"
+    },
+    "pros": ["Holds an edge", "Comfortable handle", "Sheath included"],
+    "cons": ["Carbon steel needs oiling"],
+    "links": [
+      {
+        "retailer": "amazon",
+        "url": ""
+      },
+      {
+        "retailer": "bass-pro",
+        "url": ""
+      },
+      {
+        "retailer": "cabelas",
+        "url": ""
+      }
+    ],
+    "tags": ["knife", "bushcraft"]
+  },
+  {
+    "id": "lt-006",
+    "slug": "cedar-stone-multi-tool",
+    "name": "Cedar & Stone 15-in-1 Multi-Tool",
+    "brand": "Cedar & Stone",
+    "category": "lighting-tools-furniture",
+    "subcategory": "knives",
+    "shortDescription": "Pliers, blades and drivers in one pocket-sized tool.",
+    "description": "Placeholder description. Locking blades, needle-nose pliers, wire cutters and a bit driver for camp fixes.",
+    "images": ["/placeholders/knives.svg", "/placeholders/knives-2.svg", "/placeholders/knives-3.svg"],
+    "priceTier": "$$",
+    "rating": 4.5,
+    "specs": {
+      "Tools": "15",
+      "Weight": "8.5 oz",
+      "Locking": "Yes"
+    },
+    "pros": ["Versatile", "Solid build"],
+    "cons": ["Heavy for ultralight kits"],
+    "links": [
+      {
+        "retailer": "amazon",
+        "url": ""
+      },
+      {
+        "retailer": "rei",
+        "url": ""
+      },
+      {
+        "retailer": "bass-pro",
+        "url": ""
+      },
+      {
+        "retailer": "cabelas",
+        "url": ""
+      }
+    ],
+    "tags": ["multi-tool", "repair"]
+  },
+  {
+    "id": "lt-007",
+    "slug": "cedar-stone-camp-hatchet",
+    "name": "Cedar & Stone Camp Hatchet",
+    "brand": "Cedar & Stone",
+    "category": "lighting-tools-furniture",
+    "subcategory": "knives",
+    "shortDescription": "Hand-forged hatchet for splitting kindling.",
+    "description": "Placeholder description. A 14-inch hickory-handled hatchet for processing firewood at camp.",
+    "images": ["/placeholders/knives.svg", "/placeholders/knives-2.svg", "/placeholders/knives-3.svg"],
+    "priceTier": "$$$",
+    "rating": 4.6,
+    "specs": {
+      "Length": "14 in",
+      "Head weight": "1.3 lb",
+      "Handle": "Hickory"
+    },
+    "pros": ["Excellent balance", "Durable"],
+    "cons": ["Pricey"],
+    "links": [
+      {
+        "retailer": "bass-pro",
+        "url": ""
+      },
+      {
+        "retailer": "cabelas",
+        "url": ""
+      },
+      {
+        "retailer": "backcountry",
+        "url": ""
+      }
+    ],
+    "tags": ["axe", "firewood"]
+  },
+  {
+    "id": "lt-008",
+    "slug": "timberwolf-ultralight-camp-chair",
+    "name": "Timberwolf Ultralight Camp Chair",
+    "brand": "Timberwolf Gear",
+    "category": "lighting-tools-furniture",
+    "subcategory": "chairs",
+    "shortDescription": "Two-pound packable chair that sets up in a minute.",
+    "description": "Placeholder description. Shock-corded aluminum poles and a breathable mesh seat. Worth its weight at every rest stop.",
+    "images": ["/placeholders/chairs.svg", "/placeholders/chairs-2.svg", "/placeholders/chairs-3.svg"],
+    "priceTier": "$$",
+    "rating": 4.5,
+    "specs": {
+      "Weight": "2 lb",
+      "Capacity": "265 lb",
+      "Seat height": "13 in"
+    },
+    "pros": ["Light and packable", "Comfortable"],
+    "cons": ["Low seat height", "Sinks in soft ground"],
+    "links": [
+      {
+        "retailer": "amazon",
+        "url": ""
+      },
+      {
+        "retailer": "rei",
+        "url": ""
+      },
+      {
+        "retailer": "backcountry",
+        "url": ""
+      }
+    ],
+    "featured": true,
+    "tags": ["chair", "backpacking"]
+  },
+  {
+    "id": "lt-009",
+    "slug": "ridgeline-oversized-camp-chair",
+    "name": "Ridgeline Oversized Camp Chair",
+    "brand": "Ridgeline",
+    "category": "lighting-tools-furniture",
+    "subcategory": "chairs",
+    "shortDescription": "Padded quad chair with cupholder and side cooler.",
+    "description": "Placeholder description. The campfire throne: padded, wide, with a built-in cupholder and a small insulated side pocket.",
+    "images": ["/placeholders/chairs.svg", "/placeholders/chairs-2.svg", "/placeholders/chairs-3.svg"],
+    "priceTier": "$",
+    "rating": 4.3,
+    "specs": {
+      "Weight": "12 lb",
+      "Capacity": "350 lb",
+      "Seat height": "19 in"
+    },
+    "pros": ["Very comfortable", "Sturdy", "Cheap"],
+    "cons": ["Heavy and bulky"],
+    "links": [
+      {
+        "retailer": "amazon",
+        "url": ""
+      },
+      {
+        "retailer": "bass-pro",
+        "url": ""
+      },
+      {
+        "retailer": "cabelas",
+        "url": ""
+      }
+    ],
+    "tags": ["chair", "car camping"]
+  },
+  {
+    "id": "lt-010",
+    "slug": "northfork-roll-top-camp-table",
+    "name": "Northfork Roll-Top Camp Table",
+    "brand": "Northfork",
+    "category": "lighting-tools-furniture",
+    "subcategory": "tables",
+    "shortDescription": "Aluminum roll-top table that packs into a tote.",
+    "description": "Placeholder description. A stable roll-up aluminum top on an X-frame base for cooking and card games.",
+    "images": ["/placeholders/tables.svg", "/placeholders/tables-2.svg", "/placeholders/tables-3.svg"],
+    "priceTier": "$$",
+    "rating": 4.4,
+    "specs": {
+      "Top size": "28 x 28 in",
+      "Weight": "7 lb",
+      "Height": "27 in"
+    },
+    "pros": ["Stable", "Packs small for its size"],
+    "cons": ["Slats can pinch fingers"],
+    "links": [
+      {
+        "retailer": "amazon",
+        "url": ""
+      },
+      {
+        "retailer": "rei",
+        "url": ""
+      },
+      {
+        "retailer": "bass-pro",
+        "url": ""
+      }
+    ],
+    "tags": ["table", "car camping"]
+  }
+]

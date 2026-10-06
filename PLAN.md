@@ -6,8 +6,8 @@ The repo is empty (just a README). We're building a camping gear affiliate busin
 
 **Decisions so far:**
 
-- **Stack:** Next.js + TypeScript for the site, Expo (React Native) for the app
-- **Product data:** data files in the repo now, a CMS later
+- **Stack:** Laravel + Inertia + React (TypeScript) for the site and API, Expo (React Native) for the app. The site moved off Next.js and Supabase in October 2026.
+- **Product data:** in the database, edited in a Filament admin (it started as TS data files)
 - **App features:** everything the site does, plus saved gear lists, trip checklists, and price-drop alerts
 - **Name:** a placeholder for now. Working name **"Basecamp Outfitters"**, kept in one config file so it's easy to swap.
 - **Launch categories:** Shelter & Sleep, Packs & Clothing, Lighting/Tools/Furniture
@@ -17,15 +17,17 @@ The repo is empty (just a README). We're building a camping gear affiliate busin
 
 ## 1. Tech stack
 
-| Layer                              | Choice                                                                                                                                                                                                        |
-| ---------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Website                            | **Next.js 15 (App Router) + TypeScript**, mostly static pages for SEO                                                                                                                                         |
-| Styling                            | **Tailwind CSS**, with a custom earthy theme: forest green, bark brown, canvas tan, ember orange for buttons. Headings in a rugged serif or slab font (e.g. "Bitter" or "Roboto Slab"), body text in "Inter". |
-| Product data (phase 1)             | Typed TS data files in `src/data/`                                                                                                                                                                            |
-| CMS (phase 2)                      | Sanity or Supabase, whichever we pick when we get there. The data access layer (`src/lib/products.ts`) means only one file has to change.                                                                     |
-| Accounts and user data (app phase) | **Supabase** (auth + Postgres). Saved lists, checklists, and alert subscriptions need user accounts.                                                                                                          |
-| Hosting                            | **Vercel** for the site. Expo EAS for app builds and store submission.                                                                                                                                        |
-| Mobile                             | **Expo (React Native) + Expo Router**, sharing types and data access with the site through a monorepo                                                                                                         |
+| Layer                  | Choice                                                                                                                                                                                                         |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Layer                  | Choice                                                                                                                                                                                                         |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Website                | **Laravel 13 + Inertia 3 + React + TypeScript**, server-side rendered for SEO                                                                                                                                  |
+| Styling                | **Tailwind CSS 4**, with a custom earthy theme: forest green, bark brown, canvas tan, ember orange for buttons. Headings in "Bitter", body text in "Inter".                                                    |
+| Product data           | **PostgreSQL** tables (products, links, categories, trip templates), seeded from the original data and edited in a **Filament** admin at `/admin`                                                              |
+| Accounts and user data | **Laravel**: Fortify (website sign-in), Sanctum (app tokens and the website's API calls), Socialite (Apple, Google). Saved lists and trips in Postgres, with ownership enforced by policies.                   |
+| API                    | JSON API at `/api/v1`, used by the app and by the website's interactive bits. The typed client lives in `packages/shared`.                                                                                     |
+| Hosting                | **Laravel Cloud or Forge** for the site, API and SSR server. Expo EAS for app builds and store submission.                                                                                                     |
+| Mobile                 | **Expo (React Native) + Expo Router**, sharing types and the API client with the site through a monorepo                                                                                                       |
 
 ## 2. Repo structure
 
@@ -48,7 +50,7 @@ src/
 public/placeholders/      # filler images
 ```
 
-In the app phase this becomes a monorepo (`apps/web`, `apps/mobile`, `packages/shared`) using npm or pnpm workspaces. `types/` and `lib/products.ts` move into `packages/shared`.
+In the app phase this became a monorepo (`apps/web`, `apps/mobile`, `packages/shared`) using npm workspaces. Since the Laravel move, `apps/web` is the Laravel app, and `packages/shared` holds the TS types, brand colors and the API client. The README has the current layout.
 
 ## 3. Data model
 
@@ -90,7 +92,7 @@ Filler content: **about 8–10 products per category (about 30 total)**, with pl
 
 - Buy buttons never link straight to the retailer. They go to `/go/[slug]/[retailer]`, which looks up the URL and sends a 302 redirect.
   - When real affiliate links arrive, you edit one field per product.
-  - Clicks can be counted later (Vercel Analytics or a Supabase table).
+  - Clicks can be counted later (a clicks table written by the `/go` controller).
   - If a link is still empty, the button shows "Coming soon" and is disabled.
 - All outbound links get `rel="sponsored nofollow noopener"` and open in a new tab.
 - **Compliance:**
@@ -102,13 +104,13 @@ Filler content: **about 8–10 products per category (about 30 total)**, with pl
 ## 6. Mobile app (later phase)
 
 - Expo app with the same browse, search, and product screens, reading the shared data layer
-- **Accounts:** Supabase Auth (email, Apple, Google)
+- **Accounts:** Laravel (Fortify / Sanctum / Socialite): email, Apple, Google
 - **Saved gear lists:** favorite products and named kits (e.g. "Winter backpacking kit"), synced across devices. The website can get these too.
 - **Trip checklists:** packing-list templates by trip type. Each checklist item can link to a recommended product.
 - **Price-drop alerts:** need real price data:
   - Amazon Product Advertising API, which only unlocks after the Associates account makes qualifying sales
   - Affiliate network product feeds for the other retailers
-  - A scheduled job (Supabase cron or Vercel cron) stores price history and sends push notifications through Expo Notifications
+  - A scheduled Laravel command (`routes/console.php` schedule) stores price history and sends push notifications through Expo Notifications
   - **This is the last feature built**, because it depends on approved affiliate accounts.
 
 ## 7. Build phases
@@ -128,15 +130,16 @@ Filler content: **about 8–10 products per category (about 30 total)**, with pl
 **Status:**
 
 - Phases 1–5: ✅ website done
-- Phase 6: skipped for now
-- Phase 7: ✅ monorepo, plus the Expo app with browse, search, saved lists and trip checklists (stored on the device)
-- Accounts: ✅ Supabase sign-in (email + password, Apple, Google). Browsing is open; saving, lists and trips need an account and sync between the website (`/my-gear`, `/trips`) and the app
-- Next: create the Supabase project and keys (see README), deploy the site, then phase 8
+- Phase 6: ✅ products, affiliate links, categories and trip templates are in the database, edited at `/admin` (Filament). Guide and blog articles are still to do.
+- Phase 7: ✅ monorepo, plus the Expo app with browse, search, saved lists and trip checklists
+- Accounts: ✅ email + password, Apple and Google sign-in. Browsing is open; saving, lists and trips need an account and sync between the website (`/my-gear`, `/trips`) and the app
+- Platform move (October 2026): ✅ moved from Next.js + Supabase to Laravel + Inertia + React. URLs, features and the app's screens are unchanged. The app now loads the catalog from the API and caches it for offline browsing.
+- Next: Apple / Google keys, deploy to Laravel Cloud or Forge (with the SSR server), point the app's `EXPO_PUBLIC_API_URL` at it, then phase 8
 
 ## 8. Verification
 
-- `npm run build` passes, with no TypeScript or ESLint errors
-- `npm run dev`: click through home → category → product → buy button → `/go` redirect, at desktop and phone widths
+- `npm run test:web` (Pest, Pint, PHPStan), `npm run lint` and `npm run typecheck` pass, and `npm run build:web` builds
+- `npm run dev:web`: click through home → category → product → buy button → `/go` redirect, at desktop and phone widths
 - Filters, sorting, and search return the expected filler products
 - Empty affiliate URLs show a disabled "Coming soon" button, with no broken redirects
 - The Lighthouse SEO and accessibility scores are 90 or higher, and the sitemap lists every product page

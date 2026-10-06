@@ -1,11 +1,11 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { checklistTemplates } from "@basecamp/shared";
 import { Link, router, useFocusEffect } from "expo-router";
 import { useCallback, useState } from "react";
 import { Pressable, ScrollView, StyleSheet, View } from "react-native";
 import { NamePrompt } from "@/components/NamePrompt";
 import { T } from "@/components/T";
 import { requireAuth, useAuth } from "@/store/auth";
+import { useChecklistTemplates } from "@/store/catalog";
 import { useTrips, type Trip } from "@/store/trips";
 import { colors, fonts, radius, space } from "@/theme";
 
@@ -13,6 +13,7 @@ type Starting = { templateId?: string; defaultName: string };
 
 export default function TripsScreen() {
   const user = useAuth((s) => s.user);
+  const checklistTemplates = useChecklistTemplates();
   const trips = useTrips((s) => s.trips);
   const createTrip = useTrips((s) => s.createTrip);
   const load = useTrips((s) => s.load);

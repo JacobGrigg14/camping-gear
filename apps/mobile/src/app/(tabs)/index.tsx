@@ -1,14 +1,21 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { getCategories, getFeaturedProducts, getTopRated, site } from "@basecamp/shared";
+import { getTopRated, type Product, site } from "@basecamp/shared";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
+import { useMemo } from "react";
 import { FlatList, Pressable, ScrollView, StyleSheet, View } from "react-native";
 import { ProductTile } from "@/components/ProductCard";
 import { T } from "@/components/T";
 import { imageSource } from "@/lib/images";
+import { useCatalog } from "@/store/catalog";
 import { colors, fonts, radius, space } from "@/theme";
 
 export default function BrowseScreen() {
+  const categories = useCatalog((s) => s.categories);
+  const products = useCatalog((s) => s.products);
+  const featured = useMemo(() => products.filter((p) => p.featured), [products]);
+  const topRated = useMemo(() => getTopRated(products, 8), [products]);
+
   return (
     <ScrollView contentContainerStyle={{ paddingBottom: space.xxl }}>
       <View style={styles.hero}>
@@ -21,7 +28,7 @@ export default function BrowseScreen() {
 
       <Section title="Shop by category">
         <View style={{ gap: space.md, paddingHorizontal: space.lg }}>
-          {getCategories().map((c) => (
+          {categories.map((c) => (
             <Link key={c.slug} href={`/category/${c.slug}`} asChild>
               <Pressable style={styles.category}>
                 <Image source={imageSource(c.image)} style={styles.categoryImage} contentFit="cover" />
@@ -37,11 +44,11 @@ export default function BrowseScreen() {
       </Section>
 
       <Section title="Featured gear">
-        <Carousel products={getFeaturedProducts()} />
+        <Carousel products={featured} />
       </Section>
 
       <Section title="Top rated">
-        <Carousel products={getTopRated(8)} />
+        <Carousel products={topRated} />
       </Section>
     </ScrollView>
   );
@@ -58,7 +65,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
   );
 }
 
-function Carousel({ products }: { products: ReturnType<typeof getFeaturedProducts> }) {
+function Carousel({ products }: { products: Product[] }) {
   return (
     <FlatList
       horizontal
