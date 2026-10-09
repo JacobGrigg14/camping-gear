@@ -1,14 +1,7 @@
-import {
-  createList as createListDb,
-  deleteList as deleteListDb,
-  fetchLists,
-  type GearList,
-  renameList as renameListDb,
-  setProductInList,
-} from "@basecamp/shared";
+import type { GearList } from "@basecamp/shared";
 import { create } from "zustand";
+import { api } from "@/lib/api";
 import { showError } from "@/lib/confirm";
-import { supabase } from "@/lib/supabase";
 
 export type { GearList };
 
@@ -25,12 +18,12 @@ type ListsState = {
 };
 
 /**
- * The signed-in user's gear lists, kept in Supabase.
+ * The signed-in user's gear lists, kept on the website (Laravel API).
  * Changes show immediately and are rolled back if the write fails.
  */
 export const useLists = create<ListsState>()((set, get) => {
   /** Applies a local change, runs the write, and restores the previous lists on failure. */
-  async function optimistic(change: (lists: GearList[]) => GearList[], write: () => Promise<void>) {
+  async function optimistic(change: (lists: GearList[]) => GearList[], write: () => Promise<unknown>) {
     const previous = get().lists;
     set({ lists: change(previous) });
     try {
@@ -45,18 +38,18 @@ export const useLists = create<ListsState>()((set, get) => {
     lists: [],
     loaded: false,
     load: async () => {
-      if (!supabase) return;
+      if (!api) return;
       try {
-        set({ lists: await fetchLists(supabase), loaded: true });
+        set({ lists: await api.fetchLists(), loaded: true });
       } catch {
         // Keep whatever we had; the next focus or sign-in retries.
       }
     },
     clear: () => set({ lists: [], loaded: false }),
     createList: async (name, productId) => {
-      if (!supabase) return;
+      if (!api) return;
       try {
-        const list = await createListDb(supabase, name, productId);
+        const list = await api.createList(name, productId);
         set((s) => ({ lists: [...s.lists, list] }));
         return list.id;
       } catch {
@@ -64,25 +57,25 @@ export const useLists = create<ListsState>()((set, get) => {
       }
     },
     renameList: (id, name) => {
-      if (!supabase) return;
-      const sb = supabase;
+      if (!api) return;
+      const client = api;
       optimistic(
         (lists) => lists.map((l) => (l.id === id ? { ...l, name } : l)),
-        () => renameListDb(sb, id, name),
+        () => client.renameList(id, name),
       );
     },
     deleteList: (id) => {
-      if (!supabase) return;
-      const sb = supabase;
+      if (!api) return;
+      const client = api;
       optimistic(
         (lists) => lists.filter((l) => l.id !== id || l.isFavorites),
-        () => deleteListDb(sb, id),
+        () => client.deleteList(id),
       );
     },
     toggleProduct: (listId, productId) => {
-      const sb = supabase;
+      const client = api;
       const list = get().lists.find((l) => l.id === listId);
-      if (!sb || !list) return;
+      if (!client || !list) return;
       const saved = !list.productIds.includes(productId);
       optimistic(
         (lists) =>
@@ -94,7 +87,7 @@ export const useLists = create<ListsState>()((set, get) => {
                   productIds: saved ? [productId, ...l.productIds] : l.productIds.filter((p) => p !== productId),
                 },
           ),
-        () => setProductInList(sb, listId, productId, saved),
+        () => client.setProductInList(listId, productId, saved),
       );
     },
   };

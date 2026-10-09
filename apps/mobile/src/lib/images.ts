@@ -1,6 +1,7 @@
 import type { ImageSource } from "expo-image";
+import { apiUrl } from "./api";
 
-// Bundled filler images, keyed by the paths used in the shared product data.
+// Bundled filler images, keyed by the paths used in the catalog data.
 // Regenerate with `npm run placeholders` from the repo root.
 const placeholders: Record<string, number> = {
   "/placeholders/tents.svg": require("@/assets/placeholders/tents.svg"),
@@ -41,7 +42,10 @@ const placeholders: Record<string, number> = {
   "/placeholders/tables-3.svg": require("@/assets/placeholders/tables-3.svg"),
 };
 
-/** Resolves an image path from the shared data: bundled placeholders, or a full URL for real product photos. */
+/**
+ * Resolves an image path from the catalog: bundled placeholders, a full URL, or a path on the
+ * website (e.g. an image uploaded in the admin).
+ */
 export function imageSource(path: string): ImageSource | number {
-  return placeholders[path] ?? { uri: path };
+  return placeholders[path] ?? { uri: path.startsWith("/") ? `${apiUrl}${path}` : path };
 }

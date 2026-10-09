@@ -1,4 +1,4 @@
-// Brand color tokens shared with the app. The website mirrors these in apps/web/src/app/globals.css.
+// Brand color tokens shared with the app. The website mirrors these in apps/web/resources/css/app.css.
 export const colors = {
   forest50: "#f1f4ef",
   forest100: "#dfe6da",

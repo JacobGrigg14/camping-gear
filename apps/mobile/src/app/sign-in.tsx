@@ -1,13 +1,12 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import type { Provider } from "@supabase/supabase-js";
 import { router } from "expo-router";
 import { useState } from "react";
 import { KeyboardAvoidingView, Platform, Pressable, ScrollView, StyleSheet, View } from "react-native";
 import { Button } from "@/components/Button";
 import { T } from "@/components/T";
 import { TextField } from "@/components/TextField";
-import { supabaseConfigured } from "@/lib/supabase";
-import { sendPasswordReset, signInWithEmail, signInWithProvider, signUpWithEmail } from "@/store/auth";
+import { api } from "@/lib/api";
+import { type Provider, sendPasswordReset, signInWithEmail, signInWithProvider, signUpWithEmail } from "@/store/auth";
 import { colors, fonts, radius, space } from "@/theme";
 
 type Mode = "sign-in" | "sign-up";
@@ -38,15 +37,9 @@ export default function SignInScreen() {
 
   const submit = () =>
     run(async () => {
-      if (mode === "sign-in") {
-        await signInWithEmail(email.trim(), password);
-        done();
-      } else if (await signUpWithEmail(email.trim(), password)) {
-        setMode("sign-in");
-        setNotice("Check your email for a link to confirm your account, then sign in here.");
-      } else {
-        done();
-      }
+      if (mode === "sign-in") await signInWithEmail(email.trim(), password);
+      else await signUpWithEmail(email.trim(), password);
+      done();
     });
 
   const oauth = (provider: Provider) =>
@@ -61,11 +54,11 @@ export default function SignInScreen() {
       setNotice("If an account exists for that email, a reset link is on its way.");
     });
 
-  if (!supabaseConfigured) {
+  if (!api) {
     return (
       <View style={styles.container}>
         <T variant="h2">Accounts are coming soon</T>
-        <T>Saving gear and trips needs the Supabase keys in apps/mobile/.env.local. See the README.</T>
+        <T>Saving gear and trips needs EXPO_PUBLIC_API_URL in apps/mobile/.env.local. See the README.</T>
         <Button title="Keep browsing" onPress={done} />
       </View>
     );

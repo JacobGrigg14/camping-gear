@@ -1,0 +1,199 @@
+@import "tailwindcss";
+
+@source '../views';
+
+/* Brand colors. The app mirrors these in packages/shared/src/theme.ts. */
+@theme {
+  --color-forest-50: #f1f4ef;
+  --color-forest-100: #dfe6da;
+  --color-forest-300: #8a9a7b;
+  --color-forest-500: #4f6b48;
+  --color-forest-700: #3f5a3c;
+  --color-forest-800: #2f4430;
+  --color-forest-900: #1f2e20;
+
+  --color-bark-300: #b08968;
+  --color-bark-500: #7f5539;
+  --color-bark-700: #5c3f2c;
+  --color-bark-900: #2e2018;
+
+  --color-canvas-50: #faf6ee;
+  --color-canvas-100: #f3ecdc;
+  --color-canvas-200: #e8dcc2;
+  --color-canvas-300: #d9c9a8;
+
+  --color-ember-500: #c8642a;
+  --color-ember-600: #a9511f;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Bitter", ui-serif, Georgia, serif;
+}
+
+body {
+  background-color: var(--color-canvas-50);
+  /* Subtle canvas texture */
+  background-image:
+    repeating-linear-gradient(0deg, rgb(92 63 44 / 0.025) 0 1px, transparent 1px 4px),
+    repeating-linear-gradient(90deg, rgb(92 63 44 / 0.025) 0 1px, transparent 1px 4px);
+  color: var(--color-bark-900);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+}
+
+/* Dropdowns: replace the native arrow so it sits away from the right edge */
+.select {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%235c3f2c'%3E%3Cpath d='M5.3 7.3a1 1 0 0 1 1.4 0L10 10.6l3.3-3.3a1 1 0 1 1 1.4 1.4l-4 4a1 1 0 0 1-1.4 0l-4-4a1 1 0 0 1 0-1.4z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1rem;
+  padding-right: 2.5rem;
+}
+
+/* Inertia's root element: header, page, footer stacked with the footer at the bottom. */
+#app {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+}
+
+/* Contact dialog ------------------------------------------------------------------
+   Opens: backdrop fades and blurs, the card springs up, the ridges rise one after the
+   other with the sun coming up behind, then the content fades in in order (--i).
+   Closes: a quick reverse. Phones get a bottom sheet. */
+.contact-dialog {
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  width: min(100% - 2rem, 28rem);
+  max-width: none;
+  margin: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+  color: inherit;
+}
+.contact-dialog[open] {
+  animation: contact-in 550ms var(--ease-spring);
+}
+.contact-dialog::backdrop {
+  background: rgb(31 46 32 / 0.6);
+  backdrop-filter: blur(6px);
+  animation: contact-backdrop-in 300ms ease-out;
+}
+.contact-dialog[data-state="closing"] {
+  animation: contact-out 220ms ease-in forwards;
+}
+.contact-dialog[data-state="closing"]::backdrop {
+  animation: contact-backdrop-out 220ms ease-in forwards;
+}
+
+.contact-ridge {
+  transform-box: fill-box;
+  animation: contact-ridge 900ms var(--ease-spring) both;
+}
+.contact-ridge-back {
+  animation-delay: 80ms;
+}
+.contact-ridge-front {
+  animation-delay: 180ms;
+}
+.contact-sun {
+  animation: contact-sun 1100ms var(--ease-spring) 120ms both;
+}
+.contact-rise {
+  animation: contact-rise 600ms var(--ease-spring) both;
+  animation-delay: calc(220ms + var(--i, 0) * 60ms);
+}
+.contact-pop {
+  animation: contact-pop 350ms var(--ease-spring);
+}
+
+html:has(.contact-dialog[open]) {
+  overflow: hidden;
+}
+
+@media (max-width: 639px) {
+  .contact-dialog {
+    width: 100%;
+    margin: auto 0 0;
+  }
+  .contact-dialog[open] {
+    animation-name: contact-sheet-in;
+  }
+  .contact-dialog[data-state="closing"] {
+    animation-name: contact-sheet-out;
+  }
+}
+
+@keyframes contact-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.94);
+  }
+}
+@keyframes contact-out {
+  to {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+}
+@keyframes contact-sheet-in {
+  from {
+    transform: translateY(100%);
+  }
+}
+@keyframes contact-sheet-out {
+  to {
+    transform: translateY(100%);
+  }
+}
+@keyframes contact-backdrop-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes contact-backdrop-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes contact-ridge {
+  from {
+    transform: translateY(100%);
+  }
+}
+@keyframes contact-sun {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.6);
+  }
+}
+@keyframes contact-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+@keyframes contact-pop {
+  from {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-dialog[open],
+  .contact-dialog::backdrop {
+    animation: contact-backdrop-in 150ms ease-out;
+  }
+  .contact-ridge,
+  .contact-sun,
+  .contact-rise,
+  .contact-pop {
+    animation: none;
+  }
+}

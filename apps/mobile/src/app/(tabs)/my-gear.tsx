@@ -1,5 +1,4 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { getProductById } from "@basecamp/shared";
 import { Image } from "expo-image";
 import { Link, router, useFocusEffect } from "expo-router";
 import { useCallback, useState } from "react";
@@ -10,6 +9,7 @@ import { NamePrompt } from "@/components/NamePrompt";
 import { T } from "@/components/T";
 import { imageSource } from "@/lib/images";
 import { useAuth } from "@/store/auth";
+import { useCatalog } from "@/store/catalog";
 import { useLists, type GearList } from "@/store/lists";
 import { colors, radius, space } from "@/theme";
 
@@ -74,8 +74,9 @@ export default function MyGearScreen() {
 }
 
 function ListRow({ list }: { list: GearList }) {
+  const products = useCatalog((s) => s.products);
   const preview = list.productIds
-    .map(getProductById)
+    .map((id) => products.find((p) => p.id === id))
     .filter((p) => p !== undefined)
     .slice(0, 3);
   return (

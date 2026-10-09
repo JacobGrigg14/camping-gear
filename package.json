@@ -6,12 +6,13 @@
     "packages/*"
   ],
   "scripts": {
-    "dev:web": "npm run dev -w web",
+    "dev:web": "cd apps/web && composer run dev",
     "dev:mobile": "npm run start -w mobile",
-    "build:web": "npm run build -w web",
-    "lint": "npm run lint -w web",
+    "build:web": "npm run build:ssr -w web",
+    "test:web": "cd apps/web && composer test",
+    "lint": "npm run check -w web",
     "typecheck": "npm run typecheck --workspaces --if-present",
-    "format": "prettier --write apps/web/src apps/mobile/app apps/mobile/src packages/shared/src scripts",
+    "format": "prettier --write apps/mobile/src packages/shared/src scripts && npm run check:fix -w web",
     "placeholders": "node scripts/generate-placeholders.mjs"
   },
   "devDependencies": {
@@ -19,6 +20,9 @@
   },
   "overrides": {
     "react": "19.2.3",
-    "react-dom": "19.2.3"
+    "react-dom": "19.2.3",
+    "@laravel/multiplex": {
+      "react": "19.2.3"
+    }
   }
 }

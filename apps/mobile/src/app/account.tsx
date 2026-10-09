@@ -1,6 +1,7 @@
 import { router } from "expo-router";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Button } from "@/components/Button";
+import { LegalLinks } from "@/components/LegalLinks";
 import { T } from "@/components/T";
 import { confirm, showError } from "@/lib/confirm";
 import { deleteAccount, signOut, useAuth } from "@/store/auth";
@@ -28,7 +29,7 @@ export default function AccountScreen() {
         <T variant="label" style={{ marginTop: space.md }}>
           Signed in with
         </T>
-        <T style={{ textTransform: "capitalize" }}>{user.app_metadata.provider ?? "email"}</T>
+        <T style={{ textTransform: "capitalize" }}>{user.signInMethod}</T>
       </View>
       <T variant="small">Your lists and trips are saved to your account and also show up on the website.</T>
       <Button
@@ -57,6 +58,7 @@ export default function AccountScreen() {
           )
         }
       />
+      <LegalLinks />
     </ScrollView>
   );
 }

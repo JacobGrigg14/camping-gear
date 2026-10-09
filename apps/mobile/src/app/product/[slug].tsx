@@ -1,5 +1,5 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { getProduct, getRelatedProducts, getSubcategoryName } from "@basecamp/shared";
+import { getRelatedProducts, getSubcategoryName } from "@basecamp/shared";
 import { Image } from "expo-image";
 import { Stack, useLocalSearchParams } from "expo-router";
 import { useState } from "react";
@@ -14,11 +14,14 @@ import { SaveToListSheet } from "@/components/SaveToListSheet";
 import { T } from "@/components/T";
 import { imageSource } from "@/lib/images";
 import { requireAuth } from "@/store/auth";
+import { useCatalog, useProduct } from "@/store/catalog";
 import { colors, fonts, radius, space } from "@/theme";
 
 export default function ProductScreen() {
   const { slug } = useLocalSearchParams<{ slug: string }>();
-  const product = getProduct(slug);
+  const product = useProduct(slug);
+  const products = useCatalog((s) => s.products);
+  const categories = useCatalog((s) => s.categories);
   const { width } = useWindowDimensions();
   const [imageIndex, setImageIndex] = useState(0);
   const [sheetOpen, setSheetOpen] = useState(false);
@@ -28,7 +31,7 @@ export default function ProductScreen() {
       <EmptyState icon="alert-circle-outline" title="Product not found" message="This item may have been removed." />
     );
   }
-  const related = getRelatedProducts(product, 6);
+  const related = getRelatedProducts(products, product, 6);
 
   return (
     <>
@@ -62,7 +65,7 @@ export default function ProductScreen() {
 
         <View style={styles.section}>
           <T variant="label">
-            {product.brand} · {getSubcategoryName(product)}
+            {product.brand} · {getSubcategoryName(categories, product)}
           </T>
           <T variant="h1">{product.name}</T>
           <View style={styles.meta}>

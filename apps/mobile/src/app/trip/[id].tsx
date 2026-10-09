@@ -1,13 +1,17 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { getProduct } from "@basecamp/shared";
 import { router, Stack, useLocalSearchParams } from "expo-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Pressable, SectionList, StyleSheet, TextInput, View } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { Button } from "@/components/Button";
 import { T } from "@/components/T";
 import { confirm } from "@/lib/confirm";
-import { CUSTOM_SECTION, useTrips, type TripItem } from "@/store/trips";
+import { useProduct } from "@/store/catalog";
+import { useTrips, type TripItem } from "@/store/trips";
 import { colors, fonts, radius, space } from "@/theme";
+
+/** How long the "Removed … Undo" bar stays up. */
+const UNDO_MS = 6000;
 
 export default function TripScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -15,8 +19,18 @@ export default function TripScreen() {
   const toggleItem = useTrips((s) => s.toggleItem);
   const addItem = useTrips((s) => s.addItem);
   const removeItem = useTrips((s) => s.removeItem);
+  const restoreItem = useTrips((s) => s.restoreItem);
   const deleteTrip = useTrips((s) => s.deleteTrip);
   const [newItem, setNewItem] = useState("");
+  /** The last removed item and where it was, while it can still be undone. */
+  const [removed, setRemoved] = useState<{ item: TripItem; index: number } | null>(null);
+  const insets = useSafeAreaInsets();
+
+  useEffect(() => {
+    if (!removed) return;
+    const timer = setTimeout(() => setRemoved(null), UNDO_MS);
+    return () => clearTimeout(timer);
+  }, [removed]);
 
   if (!trip) return null;
 
@@ -29,6 +43,18 @@ export default function TripScreen() {
     if (!label) return;
     addItem(trip.id, label);
     setNewItem("");
+  };
+
+  const remove = async (item: TripItem) => {
+    const index = trip.items.findIndex((i) => i.id === item.id);
+    setRemoved(null);
+    if (await removeItem(trip.id, item.id)) setRemoved({ item, index });
+  };
+
+  const undoRemove = () => {
+    if (!removed) return;
+    setRemoved(null);
+    restoreItem(trip.id, removed.item, removed.index);
   };
 
   return (
@@ -51,11 +77,7 @@ export default function TripScreen() {
           </T>
         )}
         renderItem={({ item }) => (
-          <ItemRow
-            item={item}
-            onToggle={() => toggleItem(trip.id, item.id)}
-            onRemove={item.section === CUSTOM_SECTION ? () => removeItem(trip.id, item.id) : undefined}
-          />
+          <ItemRow item={item} onToggle={() => toggleItem(trip.id, item.id)} onRemove={() => remove(item)} />
         )}
         ListFooterComponent={
           <View style={{ gap: space.md, marginTop: space.xl }}>
@@ -84,12 +106,22 @@ export default function TripScreen() {
           </View>
         }
       />
+      {removed && (
+        <View style={[styles.undoBar, { bottom: insets.bottom + space.lg }]} accessibilityLiveRegion="polite">
+          <T style={styles.undoText} numberOfLines={1}>
+            Removed “{removed.item.label}”
+          </T>
+          <Pressable onPress={undoRemove} hitSlop={8} accessibilityRole="button">
+            <T style={styles.undoAction}>Undo</T>
+          </Pressable>
+        </View>
+      )}
     </>
   );
 }
 
-function ItemRow({ item, onToggle, onRemove }: { item: TripItem; onToggle: () => void; onRemove?: () => void }) {
-  const product = item.productSlug ? getProduct(item.productSlug) : undefined;
+function ItemRow({ item, onToggle, onRemove }: { item: TripItem; onToggle: () => void; onRemove: () => void }) {
+  const product = useProduct(item.productSlug ?? undefined);
   const openPick = () => {
     if (product) router.push(`/product/${product.slug}`);
     else if (item.gear)
@@ -149,6 +181,20 @@ const styles = StyleSheet.create({
   pick: { flexDirection: "row", alignItems: "center", gap: 2 },
   pickText: { fontFamily: fonts.semibold, fontSize: 13, color: colors.ember600 },
   addRow: { flexDirection: "row", gap: space.sm },
+  undoBar: {
+    position: "absolute",
+    left: space.lg,
+    right: space.lg,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: space.md,
+    backgroundColor: colors.bark900,
+    borderRadius: radius.sm,
+    paddingHorizontal: space.lg,
+    paddingVertical: space.md,
+  },
+  undoText: { flex: 1, color: colors.white },
+  undoAction: { fontFamily: fonts.semibold, color: colors.ember500 },
   input: {
     flex: 1,
     backgroundColor: colors.white,
