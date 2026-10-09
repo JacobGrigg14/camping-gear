@@ -17,9 +17,13 @@ Route::get('gear/{category:slug}/{slug}', [CatalogController::class, 'product'])
 Route::get('search', [CatalogController::class, 'search'])->name('search');
 Route::inertia('about', 'about')->name('about');
 Route::inertia('disclosure', 'disclosure')->name('disclosure');
+Route::inertia('privacy', 'privacy')->name('privacy');
+Route::inertia('terms', 'terms')->name('terms');
+// Contact is a popup on every page; old links open it on the home page.
+Route::redirect('contact', '/#contact')->name('contact');
 
 // Outbound affiliate redirect: /go/<product-slug>/<retailer>.
-Route::get('go/{slug}/{retailer}', GoController::class)->name('go');
+Route::get('go/{slug}/{retailer}', GoController::class)->middleware('throttle:60,1')->name('go');
 
 Route::get('sitemap.xml', SitemapController::class)->name('sitemap');
 Route::get('robots.txt', fn () => response(implode("\n", [
@@ -40,12 +44,14 @@ Route::get('robots.txt', fn () => response(implode("\n", [
 Route::redirect('signup', '/register');
 
 // Apple / Google sign-in for the website and the app. Apple posts its callback.
-Route::get('auth/{provider}/redirect', [SocialLoginController::class, 'redirect'])
-    ->whereIn('provider', SocialLoginController::PROVIDERS)
-    ->name('social.redirect');
-Route::match(['get', 'post'], 'auth/{provider}/callback', [SocialLoginController::class, 'callback'])
-    ->whereIn('provider', SocialLoginController::PROVIDERS)
-    ->name('social.callback');
+Route::middleware('throttle:20,1')->group(function () {
+    Route::get('auth/{provider}/redirect', [SocialLoginController::class, 'redirect'])
+        ->whereIn('provider', SocialLoginController::PROVIDERS)
+        ->name('social.redirect');
+    Route::match(['get', 'post'], 'auth/{provider}/callback', [SocialLoginController::class, 'callback'])
+        ->whereIn('provider', SocialLoginController::PROVIDERS)
+        ->name('social.callback');
+});
 
 Route::middleware('auth')->group(function () {
     Route::get('account', [AccountController::class, 'show'])->name('account');

@@ -61,12 +61,25 @@ test('/go sends pending links back to the product page and unknown products home
 test('sitemap lists every product page', function () {
     $response = $this->get('/sitemap.xml')->assertOk()->assertHeader('Content-Type', 'application/xml');
 
-    expect(substr_count($response->getContent(), '<url>'))->toBe(Product::count() + 3 + 3);
+    expect(substr_count($response->getContent(), '<url>'))->toBe(Product::count() + 3 + 5);
     $response->assertSee(url('/gear/shelter-sleep/ridgeline-2p-backpacking-tent'), false);
+    $response->assertSee('<lastmod>'.Product::find('ss-001')->updated_at->toDateString().'</lastmod>', false);
 });
+
+test('legal pages render', function (string $path, string $component) {
+    $this->get($path)->assertOk()->assertInertia(fn (Assert $page) => $page->component($component));
+})->with([
+    ['/privacy', 'privacy'],
+    ['/terms', 'terms'],
+    ['/disclosure', 'disclosure'],
+]);
 
 test('robots.txt points at the sitemap', function () {
     $this->get('/robots.txt')->assertOk()->assertSee('Sitemap: '.url('sitemap.xml'))->assertSee('Disallow: /go/');
+});
+
+test('/contact opens the contact popup on the home page', function () {
+    $this->get('/contact')->assertRedirect('/#contact');
 });
 
 test('old /signup address redirects to /register', function () {

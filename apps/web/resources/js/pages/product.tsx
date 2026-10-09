@@ -1,8 +1,9 @@
-import { Head, usePage } from "@inertiajs/react";
+import { usePage } from "@inertiajs/react";
 import { type Product, productPath, site } from "@basecamp/shared";
 import { Breadcrumbs } from "@/components/Breadcrumbs";
 import { BuyButtons } from "@/components/BuyButtons";
 import { ImageGallery } from "@/components/ImageGallery";
+import { JsonLd } from "@/components/JsonLd";
 import { PriceTier } from "@/components/PriceTier";
 import { ProductGrid } from "@/components/ProductGrid";
 import { Rating } from "@/components/Rating";
@@ -46,14 +47,9 @@ export default function ProductPage({
         description={product.shortDescription}
         canonical={productPath(product)}
         image={product.images[0]}
+        type="product"
       />
-      <Head>
-        <script
-          head-key="product-jsonld"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd(product, siteUrl)).replace(/</g, "\\u003c") }}
-        />
-      </Head>
+      <JsonLd id="product-jsonld" data={jsonLd(product, siteUrl)} />
       <Breadcrumbs
         items={[
           { label: "Home", href: "/" },

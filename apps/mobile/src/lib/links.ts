@@ -8,5 +8,5 @@ import { apiUrl } from "./api";
 export function buyUrl(product: Product, retailer: Retailer): string | undefined {
   const url = getAffiliateUrl(product, retailer);
   if (!url) return undefined;
-  return apiUrl ? `${apiUrl}/go/${product.slug}/${retailer}` : url;
+  return apiUrl ? `${apiUrl}/go/${product.slug}/${retailer}?src=app` : url;
 }

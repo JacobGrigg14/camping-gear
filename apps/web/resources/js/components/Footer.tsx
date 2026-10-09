@@ -1,5 +1,7 @@
 import { Link, usePage } from "@inertiajs/react";
 import { amazonDisclosure, disclosureShort, site } from "@basecamp/shared";
+import { openContact } from "@/components/ContactModal";
+import { analyticsEnabled, OPEN_SETTINGS_EVENT } from "@/lib/analytics";
 
 export function Footer() {
   const { categories } = usePage().props;
@@ -35,6 +37,39 @@ export function Footer() {
                 Affiliate disclosure
               </Link>
             </li>
+            <li>
+              <a
+                href="#contact"
+                onClick={(e) => {
+                  e.preventDefault();
+                  openContact();
+                }}
+                className="hover:text-ember-500"
+              >
+                Contact
+              </a>
+            </li>
+            <li>
+              <Link href="/privacy" className="hover:text-ember-500">
+                Privacy policy
+              </Link>
+            </li>
+            <li>
+              <Link href="/terms" className="hover:text-ember-500">
+                Terms of use
+              </Link>
+            </li>
+            {analyticsEnabled && (
+              <li>
+                <button
+                  type="button"
+                  onClick={() => window.dispatchEvent(new Event(OPEN_SETTINGS_EVENT))}
+                  className="hover:text-ember-500"
+                >
+                  Cookie settings
+                </button>
+              </li>
+            )}
           </ul>
         </div>
       </div>

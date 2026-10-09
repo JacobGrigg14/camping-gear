@@ -103,6 +103,8 @@ export function createApiClient({ baseUrl, getToken, onUnauthorized }: ApiClient
     /** Adds a custom item at the end of the trip's checklist. */
     addItem: (tripId: string, label: string) => request<TripItem>("POST", `/trips/${tripId}/items`, { label }),
     removeItem: (itemId: string) => request<void>("DELETE", `/trip-items/${itemId}`),
+    /** Undoes `removeItem`; the item returns to its original section and position. */
+    restoreItem: (itemId: string) => request<TripItem>("POST", `/trip-items/${itemId}/restore`),
   };
 }
 

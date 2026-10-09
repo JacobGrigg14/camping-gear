@@ -28,6 +28,7 @@ use Illuminate\Support\Str;
  * @property bool $featured
  * @property-read Subcategory $subcategory
  * @property-read Collection<int, ProductLink> $links
+ * @property-read Collection<int, AffiliateClick> $clicks
  */
 #[Fillable([
     'id', 'slug', 'name', 'brand', 'subcategory_id', 'short_description', 'description',
@@ -73,6 +74,12 @@ class Product extends Model
     public function links(): HasMany
     {
         return $this->hasMany(ProductLink::class)->orderBy('position');
+    }
+
+    /** @return HasMany<AffiliateClick, $this> */
+    public function clicks(): HasMany
+    {
+        return $this->hasMany(AffiliateClick::class);
     }
 
     /** @param Builder<Product> $query */

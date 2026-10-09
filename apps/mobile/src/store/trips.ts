@@ -16,7 +16,10 @@ type TripsState = {
   deleteTrip: (id: string) => void;
   toggleItem: (tripId: string, itemId: string) => void;
   addItem: (tripId: string, label: string) => Promise<void>;
-  removeItem: (tripId: string, itemId: string) => void;
+  /** Resolves to false if the removal didn't save. */
+  removeItem: (tripId: string, itemId: string) => Promise<boolean>;
+  /** Undoes `removeItem`, putting `item` back at `index`. */
+  restoreItem: (tripId: string, item: TripItem, index: number) => void;
 };
 
 function updateTrip(trips: Trip[], id: string, fn: (t: Trip) => Trip): Trip[] {
@@ -33,9 +36,11 @@ export const useTrips = create<TripsState>()((set, get) => {
     set({ trips: change(previous) });
     try {
       await write();
+      return true;
     } catch {
       set({ trips: previous });
       showError();
+      return false;
     }
   }
 
@@ -93,12 +98,24 @@ export const useTrips = create<TripsState>()((set, get) => {
         showError("Couldn't add that item. Try again.");
       }
     },
-    removeItem: (tripId, itemId) => {
+    removeItem: async (tripId, itemId) => {
+      const client = api;
+      if (!client) return false;
+      return optimistic(
+        (trips) => updateTrip(trips, tripId, (t) => ({ ...t, items: t.items.filter((i) => i.id !== itemId) })),
+        () => client.removeItem(itemId),
+      );
+    },
+    restoreItem: (tripId, item, index) => {
       const client = api;
       if (!client) return;
       optimistic(
-        (trips) => updateTrip(trips, tripId, (t) => ({ ...t, items: t.items.filter((i) => i.id !== itemId) })),
-        () => client.removeItem(itemId),
+        (trips) =>
+          updateTrip(trips, tripId, (t) => ({
+            ...t,
+            items: [...t.items.slice(0, index), item, ...t.items.slice(index)],
+          })),
+        () => client.restoreItem(item.id),
       );
     },
   };

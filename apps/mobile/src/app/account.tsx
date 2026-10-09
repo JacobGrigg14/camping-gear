@@ -1,6 +1,7 @@
 import { router } from "expo-router";
 import { ScrollView, StyleSheet, View } from "react-native";
 import { Button } from "@/components/Button";
+import { LegalLinks } from "@/components/LegalLinks";
 import { T } from "@/components/T";
 import { confirm, showError } from "@/lib/confirm";
 import { deleteAccount, signOut, useAuth } from "@/store/auth";
@@ -57,6 +58,7 @@ export default function AccountScreen() {
           )
         }
       />
+      <LegalLinks />
     </ScrollView>
   );
 }

@@ -1,6 +1,7 @@
-import { Link } from "@inertiajs/react";
+import { Link, usePage } from "@inertiajs/react";
 import { type Category, type Product, site } from "@basecamp/shared";
 import { ProductGrid } from "@/components/ProductGrid";
+import { JsonLd } from "@/components/JsonLd";
 import { Seo } from "@/components/Seo";
 
 export default function Home({
@@ -12,9 +13,20 @@ export default function Home({
   featured: Product[];
   topRated: Product[];
 }) {
+  const { siteUrl } = usePage().props;
   return (
     <>
       <Seo canonical="/" />
+      <JsonLd
+        id="site-jsonld"
+        data={{
+          "@context": "https://schema.org",
+          "@graph": [
+            { "@type": "WebSite", name: site.name, url: `${siteUrl}/`, description: site.description },
+            { "@type": "Organization", name: site.name, url: `${siteUrl}/`, logo: `${siteUrl}/og-image.png` },
+          ],
+        }}
+      />
       <section className="relative overflow-hidden bg-forest-900 text-canvas-50">
         <svg
           className="absolute inset-x-0 bottom-0 h-40 w-full"

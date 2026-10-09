@@ -77,4 +77,13 @@ class TripController extends Controller
 
         return response()->noContent();
     }
+
+    /** Undoes a removal: the item comes back in its original section and position. */
+    public function restoreItem(TripItem $item): TripItemResource
+    {
+        Gate::authorize('update', $item->trip);
+        $item->restore();
+
+        return new TripItemResource($item);
+    }
 }

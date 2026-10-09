@@ -1,9 +1,10 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { getTopRated, type Product, site } from "@basecamp/shared";
+import { amazonDisclosure, disclosureShort, getTopRated, type Product, site } from "@basecamp/shared";
 import { Image } from "expo-image";
 import { Link } from "expo-router";
 import { useMemo } from "react";
 import { FlatList, Pressable, ScrollView, StyleSheet, View } from "react-native";
+import { LegalLinks } from "@/components/LegalLinks";
 import { ProductTile } from "@/components/ProductCard";
 import { T } from "@/components/T";
 import { imageSource } from "@/lib/images";
@@ -50,6 +51,13 @@ export default function BrowseScreen() {
       <Section title="Top rated">
         <Carousel products={topRated} />
       </Section>
+
+      <View style={styles.footer}>
+        <T variant="caption" style={{ textAlign: "center" }}>
+          {disclosureShort} {amazonDisclosure}
+        </T>
+        <LegalLinks />
+      </View>
     </ScrollView>
   );
 }
@@ -107,5 +115,6 @@ const styles = StyleSheet.create({
     padding: space.sm,
     paddingRight: space.md,
   },
+  footer: { marginTop: space.xxl, paddingHorizontal: space.xl, gap: space.md },
   categoryImage: { width: 84, height: 84, borderRadius: radius.sm, backgroundColor: colors.canvas100 },
 });

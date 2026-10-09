@@ -1,4 +1,5 @@
 import { type Product, retailers } from "@basecamp/shared";
+import { trackEvent } from "@/lib/analytics";
 import { DisclosureNote } from "./DisclosureNote";
 
 export function BuyButtons({ product }: { product: Product }) {
@@ -13,6 +14,7 @@ export function BuyButtons({ product }: { product: Product }) {
               href={`/go/${product.slug}/${retailer}`}
               target="_blank"
               rel="sponsored nofollow noopener"
+              onClick={() => trackEvent("affiliate_click", { product: product.slug, retailer })}
               className="rounded-md bg-ember-500 px-4 py-3 text-center font-semibold text-white shadow-sm transition hover:bg-ember-600"
             >
               Check price at {name}

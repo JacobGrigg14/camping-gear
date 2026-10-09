@@ -10,9 +10,11 @@ use Illuminate\Support\Facades\Route;
 // cookie (Sanctum stateful requests); the app sends a bearer token.
 
 Route::prefix('v1')->group(function () {
-    Route::get('catalog', [CatalogController::class, 'index']);
-    Route::get('products/{slug}', [CatalogController::class, 'product']);
-    Route::get('search', [CatalogController::class, 'search']);
+    Route::middleware('throttle:120,1')->group(function () {
+        Route::get('catalog', [CatalogController::class, 'index']);
+        Route::get('products/{slug}', [CatalogController::class, 'product']);
+        Route::get('search', [CatalogController::class, 'search']);
+    });
 
     Route::middleware('throttle:10,1')->group(function () {
         Route::post('auth/register', [AuthController::class, 'register']);
@@ -40,5 +42,6 @@ Route::prefix('v1')->group(function () {
         Route::post('trips/{trip}/items', [TripController::class, 'addItem'])->whereUuid('trip');
         Route::patch('trip-items/{item}', [TripController::class, 'updateItem'])->whereUuid('item');
         Route::delete('trip-items/{item}', [TripController::class, 'removeItem'])->whereUuid('item');
+        Route::post('trip-items/{item}/restore', [TripController::class, 'restoreItem'])->whereUuid('item')->withTrashed();
     });
 });

@@ -21,7 +21,8 @@ class ProductsTable
     public static function configure(Table $table): Table
     {
         return $table
-            ->modifyQueryUsing(fn (Builder $query) => $query->with(['subcategory.category', 'links']))
+            ->modifyQueryUsing(fn (Builder $query) => $query->with(['subcategory.category', 'links'])
+                ->withCount(['clicks as clicks_30d' => fn (Builder $q) => $q->where('created_at', '>=', now()->subDays(30))]))
             ->defaultSort('name')
             ->columns([
                 TextColumn::make('name')->searchable()->sortable(),
@@ -34,6 +35,10 @@ class ProductsTable
                     ->label('Live links')
                     ->state(fn (Product $record) => $record->links->filter(fn ($l) => filled($l->url))->count()
                         .' / '.$record->links->count()),
+                TextColumn::make('clicks_30d')
+                    ->label('Clicks (30 days)')
+                    ->numeric()
+                    ->sortable(),
             ])
             ->filters([
                 SelectFilter::make('category')

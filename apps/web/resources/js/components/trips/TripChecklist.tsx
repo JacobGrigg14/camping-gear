@@ -1,8 +1,11 @@
 import { Link, router } from "@inertiajs/react";
-import { useState } from "react";
-import { CUSTOM_SECTION, type Trip, type TripItem } from "@basecamp/shared";
+import { useEffect, useState } from "react";
+import type { Trip, TripItem } from "@basecamp/shared";
 import { api } from "@/lib/api";
 import { inputClass } from "../auth/ui";
+
+/** How long the "Removed … Undo" bar stays up. */
+const UNDO_MS = 6000;
 
 /** Checklist with optimistic updates; each change is written straight to the API. */
 export function TripChecklist({
@@ -16,6 +19,14 @@ export function TripChecklist({
   const [trip, setTrip] = useState(initialTrip);
   const [newItem, setNewItem] = useState("");
   const [error, setError] = useState("");
+  /** The last removed item and where it was, while it can still be undone. */
+  const [removed, setRemoved] = useState<{ item: TripItem; index: number } | null>(null);
+
+  useEffect(() => {
+    if (!removed) return;
+    const timer = setTimeout(() => setRemoved(null), UNDO_MS);
+    return () => clearTimeout(timer);
+  }, [removed]);
 
   const sections = [...new Set(trip.items.map((i) => i.section))];
   const done = trip.items.filter((i) => i.checked).length;
@@ -27,9 +38,11 @@ export function TripChecklist({
     setError("");
     try {
       await write();
+      return true;
     } catch {
       setTrip(previous);
       setError("Couldn't save that change. Check your connection and try again.");
+      return false;
     }
   }
 
@@ -39,11 +52,25 @@ export function TripChecklist({
       () => api.setItemChecked(item.id, !item.checked),
     );
 
-  const remove = (item: TripItem) =>
-    mutate(
+  async function remove(item: TripItem) {
+    const index = trip.items.findIndex((i) => i.id === item.id);
+    setRemoved(null);
+    const ok = await mutate(
       (t) => ({ ...t, items: t.items.filter((i) => i.id !== item.id) }),
       () => api.removeItem(item.id),
     );
+    if (ok) setRemoved({ item, index });
+  }
+
+  function undoRemove() {
+    if (!removed) return;
+    const { item, index } = removed;
+    setRemoved(null);
+    void mutate(
+      (t) => ({ ...t, items: t.items.toSpliced(index, 0, item) }),
+      () => api.restoreItem(item.id),
+    );
+  }
 
   async function add(e: React.FormEvent) {
     e.preventDefault();
@@ -94,7 +121,7 @@ export function TripChecklist({
                   item={item}
                   productPath={item.productSlug ? productPaths[item.productSlug] : undefined}
                   onToggle={() => toggle(item)}
-                  onRemove={item.section === CUSTOM_SECTION ? () => remove(item) : undefined}
+                  onRemove={() => remove(item)}
                 />
               ))}
           </ul>
@@ -127,6 +154,21 @@ export function TripChecklist({
       <button type="button" onClick={onDelete} className="mt-10 text-sm font-semibold text-red-700 hover:underline">
         Delete trip
       </button>
+
+      <div role="status" className="fixed inset-x-4 bottom-4 z-10 mx-auto max-w-md">
+        {removed && (
+          <div className="flex items-center justify-between gap-4 rounded-lg bg-bark-900 px-4 py-3 text-white shadow-lg">
+            <span className="truncate">Removed “{removed.item.label}”</span>
+            <button
+              type="button"
+              onClick={undoRemove}
+              className="shrink-0 font-semibold text-ember-500 hover:underline"
+            >
+              Undo
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   );
 }
@@ -140,7 +182,7 @@ function ItemRow({
   item: TripItem;
   productPath?: string;
   onToggle: () => void;
-  onRemove?: () => void;
+  onRemove: () => void;
 }) {
   const link = productPath
     ? { href: productPath, label: "Our pick" }

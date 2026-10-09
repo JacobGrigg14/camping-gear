@@ -62,6 +62,8 @@ export default function RootLayout() {
         <Stack.Screen name="list/[id]" options={{ title: "" }} />
         <Stack.Screen name="trip/[id]" options={{ title: "" }} />
         <Stack.Screen name="about" options={{ title: "About" }} />
+        <Stack.Screen name="privacy" options={{ title: "Privacy" }} />
+        <Stack.Screen name="terms" options={{ title: "Terms" }} />
         <Stack.Screen name="account" options={{ title: "Account" }} />
         <Stack.Screen name="sign-in" options={{ title: "", presentation: "modal" }} />
         <Stack.Screen name="auth/callback" options={{ headerShown: false }} />

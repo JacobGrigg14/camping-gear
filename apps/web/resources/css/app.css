@@ -60,3 +60,140 @@ h3 {
   min-height: 100vh;
   flex-direction: column;
 }
+
+/* Contact dialog ------------------------------------------------------------------
+   Opens: backdrop fades and blurs, the card springs up, the ridges rise one after the
+   other with the sun coming up behind, then the content fades in in order (--i).
+   Closes: a quick reverse. Phones get a bottom sheet. */
+.contact-dialog {
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  width: min(100% - 2rem, 28rem);
+  max-width: none;
+  margin: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  overflow: visible;
+  color: inherit;
+}
+.contact-dialog[open] {
+  animation: contact-in 550ms var(--ease-spring);
+}
+.contact-dialog::backdrop {
+  background: rgb(31 46 32 / 0.6);
+  backdrop-filter: blur(6px);
+  animation: contact-backdrop-in 300ms ease-out;
+}
+.contact-dialog[data-state="closing"] {
+  animation: contact-out 220ms ease-in forwards;
+}
+.contact-dialog[data-state="closing"]::backdrop {
+  animation: contact-backdrop-out 220ms ease-in forwards;
+}
+
+.contact-ridge {
+  transform-box: fill-box;
+  animation: contact-ridge 900ms var(--ease-spring) both;
+}
+.contact-ridge-back {
+  animation-delay: 80ms;
+}
+.contact-ridge-front {
+  animation-delay: 180ms;
+}
+.contact-sun {
+  animation: contact-sun 1100ms var(--ease-spring) 120ms both;
+}
+.contact-rise {
+  animation: contact-rise 600ms var(--ease-spring) both;
+  animation-delay: calc(220ms + var(--i, 0) * 60ms);
+}
+.contact-pop {
+  animation: contact-pop 350ms var(--ease-spring);
+}
+
+html:has(.contact-dialog[open]) {
+  overflow: hidden;
+}
+
+@media (max-width: 639px) {
+  .contact-dialog {
+    width: 100%;
+    margin: auto 0 0;
+  }
+  .contact-dialog[open] {
+    animation-name: contact-sheet-in;
+  }
+  .contact-dialog[data-state="closing"] {
+    animation-name: contact-sheet-out;
+  }
+}
+
+@keyframes contact-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.94);
+  }
+}
+@keyframes contact-out {
+  to {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+}
+@keyframes contact-sheet-in {
+  from {
+    transform: translateY(100%);
+  }
+}
+@keyframes contact-sheet-out {
+  to {
+    transform: translateY(100%);
+  }
+}
+@keyframes contact-backdrop-in {
+  from {
+    opacity: 0;
+  }
+}
+@keyframes contact-backdrop-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes contact-ridge {
+  from {
+    transform: translateY(100%);
+  }
+}
+@keyframes contact-sun {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.6);
+  }
+}
+@keyframes contact-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+@keyframes contact-pop {
+  from {
+    transform: scale(0.6);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-dialog[open],
+  .contact-dialog::backdrop {
+    animation: contact-backdrop-in 150ms ease-out;
+  }
+  .contact-ridge,
+  .contact-sun,
+  .contact-rise,
+  .contact-pop {
+    animation: none;
+  }
+}
