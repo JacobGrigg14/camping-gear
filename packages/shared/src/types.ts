@@ -1,4 +1,4 @@
-export type Retailer = "amazon" | "bass-pro" | "cabelas" | "rei" | "backcountry";
+export type Retailer = "amazon" | "mec" | "bass-pro" | "rei";
 
 export type CategorySlug = "shelter-sleep" | "packs-clothing" | "lighting-tools-furniture";
 

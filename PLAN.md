@@ -55,7 +55,7 @@ In the app phase this became a monorepo (`apps/web`, `apps/mobile`, `packages/sh
 ## 3. Data model
 
 ```ts
-type Retailer = "amazon" | "bass-pro" | "cabelas" | "rei" | "backcountry";
+type Retailer = "amazon" | "mec" | "bass-pro" | "rei";
 type Product = {
   id: string;
   slug: string;
@@ -99,7 +99,7 @@ Filler content: **about 8–10 products per category (about 30 total)**, with pl
   - A short disclosure line sits near the buy buttons on every page, and there's a full `/disclosure` page. The FTC requires this.
   - Amazon Associates has its own required wording.
   - No hard-coded Amazon prices.
-- Affiliate programs to apply for later: Amazon Associates, Bass Pro/Cabela's (they're one company), REI, Backcountry. These run directly or through networks like AvantLink, CJ, or Impact.
+- Affiliate programs: Amazon Associates, MEC, Bass Pro Shops and REI (Cabela's and Backcountry dropped 2026-10-09). These run directly or through networks like AvantLink, CJ, or Impact.
 
 ## 6. Mobile app (later phase)
 

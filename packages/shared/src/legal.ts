@@ -47,7 +47,7 @@ export const privacyPolicy: LegalDoc = {
     {
       heading: "Affiliate links",
       paragraphs: [
-        `Some links to retailers are affiliate links. When you follow one, the retailer (for example Amazon, REI, Backcountry, Bass Pro Shops or Cabela's) may set its own cookies to credit us with the sale. Those cookies are governed by the retailer's privacy policy. ${amazonDisclosure}`,
+        `Some links to retailers are affiliate links. When you follow one, the retailer (for example Amazon, MEC, Bass Pro Shops or REI) may set its own cookies to credit us with the sale. Those cookies are governed by the retailer's privacy policy. ${amazonDisclosure}`,
       ],
     },
     {

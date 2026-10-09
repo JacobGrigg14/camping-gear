@@ -19,8 +19,8 @@ export default function AboutScreen() {
         we may earn a commission from the retailer at no additional cost to you.
       </T>
       <T>
-        We participate in affiliate programs with retailers such as Amazon, Bass Pro Shops, Cabela&apos;s, REI and
-        Backcountry. {amazonDisclosure}
+        We participate in affiliate programs with retailers such as Amazon, MEC, Bass Pro Shops and REI.{" "}
+        {amazonDisclosure}
       </T>
       <T>
         Commissions never affect our ratings or which products we recommend. Prices and availability are set by each

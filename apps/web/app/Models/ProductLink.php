@@ -19,10 +19,9 @@ class ProductLink extends Model
     /** Retailers we have (or plan to have) affiliate programs with. Mirrors packages/shared/src/retailers.ts. */
     public const array RETAILERS = [
         'amazon' => 'Amazon',
+        'mec' => 'MEC',
         'bass-pro' => 'Bass Pro Shops',
-        'cabelas' => "Cabela's",
         'rei' => 'REI',
-        'backcountry' => 'Backcountry',
     ];
 
     /** @return BelongsTo<Product, $this> */

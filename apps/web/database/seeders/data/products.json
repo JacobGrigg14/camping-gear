@@ -26,11 +26,11 @@
         "url": ""
       },
       {
-        "retailer": "rei",
+        "retailer": "mec",
         "url": ""
       },
       {
-        "retailer": "backcountry",
+        "retailer": "rei",
         "url": ""
       }
     ],
@@ -66,10 +66,6 @@
       {
         "retailer": "bass-pro",
         "url": ""
-      },
-      {
-        "retailer": "cabelas",
-        "url": ""
       }
     ],
     "tags": ["car camping", "family"]
@@ -97,11 +93,11 @@
     "cons": ["Expensive", "Overkill for summer"],
     "links": [
       {
-        "retailer": "rei",
+        "retailer": "mec",
         "url": ""
       },
       {
-        "retailer": "backcountry",
+        "retailer": "rei",
         "url": ""
       }
     ],
@@ -130,6 +126,10 @@
     "links": [
       {
         "retailer": "amazon",
+        "url": ""
+      },
+      {
+        "retailer": "mec",
         "url": ""
       },
       {
@@ -167,10 +167,6 @@
       {
         "retailer": "bass-pro",
         "url": ""
-      },
-      {
-        "retailer": "cabelas",
-        "url": ""
       }
     ],
     "tags": ["hammock", "budget"]
@@ -205,11 +201,11 @@
         "url": ""
       },
       {
-        "retailer": "rei",
+        "retailer": "mec",
         "url": ""
       },
       {
-        "retailer": "backcountry",
+        "retailer": "rei",
         "url": ""
       }
     ],
@@ -248,10 +244,6 @@
       {
         "retailer": "bass-pro",
         "url": ""
-      },
-      {
-        "retailer": "cabelas",
-        "url": ""
       }
     ],
     "tags": ["car camping", "budget", "synthetic"]
@@ -286,11 +278,11 @@
         "url": ""
       },
       {
-        "retailer": "rei",
+        "retailer": "mec",
         "url": ""
       },
       {
-        "retailer": "backcountry",
+        "retailer": "rei",
         "url": ""
       }
     ],
@@ -326,11 +318,11 @@
         "url": ""
       },
       {
-        "retailer": "bass-pro",
+        "retailer": "mec",
         "url": ""
       },
       {
-        "retailer": "cabelas",
+        "retailer": "bass-pro",
         "url": ""
       },
       {
@@ -366,11 +358,11 @@
         "url": ""
       },
       {
-        "retailer": "rei",
+        "retailer": "mec",
         "url": ""
       },
       {
-        "retailer": "backcountry",
+        "retailer": "rei",
         "url": ""
       }
     ],
@@ -403,7 +395,7 @@
         "url": ""
       },
       {
-        "retailer": "backcountry",
+        "retailer": "mec",
         "url": ""
       }
     ],
@@ -437,10 +429,6 @@
       {
         "retailer": "bass-pro",
         "url": ""
-      },
-      {
-        "retailer": "cabelas",
-        "url": ""
       }
     ],
     "tags": ["day hiking", "budget"]
@@ -471,11 +459,11 @@
         "url": ""
       },
       {
-        "retailer": "rei",
+        "retailer": "mec",
         "url": ""
       },
       {
-        "retailer": "backcountry",
+        "retailer": "rei",
         "url": ""
       }
     ],
@@ -503,11 +491,11 @@
     "cons": ["Delicate shell fabric"],
     "links": [
       {
-        "retailer": "rei",
+        "retailer": "mec",
         "url": ""
       },
       {
-        "retailer": "backcountry",
+        "retailer": "rei",
         "url": ""
       }
     ],
@@ -540,10 +528,6 @@
       {
         "retailer": "bass-pro",
         "url": ""
-      },
-      {
-        "retailer": "cabelas",
-        "url": ""
       }
     ],
     "tags": ["fleece", "midlayer"]
@@ -574,11 +558,11 @@
         "url": ""
       },
       {
-        "retailer": "bass-pro",
+        "retailer": "mec",
         "url": ""
       },
       {
-        "retailer": "cabelas",
+        "retailer": "bass-pro",
         "url": ""
       },
       {
@@ -615,11 +599,11 @@
         "url": ""
       },
       {
-        "retailer": "rei",
+        "retailer": "mec",
         "url": ""
       },
       {
-        "retailer": "backcountry",
+        "retailer": "rei",
         "url": ""
       }
     ],
@@ -648,10 +632,6 @@
     "links": [
       {
         "retailer": "bass-pro",
-        "url": ""
-      },
-      {
-        "retailer": "cabelas",
         "url": ""
       }
     ],
@@ -684,11 +664,15 @@
         "url": ""
       },
       {
-        "retailer": "rei",
+        "retailer": "mec",
         "url": ""
       },
       {
         "retailer": "bass-pro",
+        "url": ""
+      },
+      {
+        "retailer": "rei",
         "url": ""
       }
     ],
@@ -724,10 +708,6 @@
       {
         "retailer": "bass-pro",
         "url": ""
-      },
-      {
-        "retailer": "cabelas",
-        "url": ""
       }
     ],
     "tags": ["headlamp", "budget"]
@@ -758,11 +738,11 @@
         "url": ""
       },
       {
-        "retailer": "bass-pro",
+        "retailer": "mec",
         "url": ""
       },
       {
-        "retailer": "cabelas",
+        "retailer": "bass-pro",
         "url": ""
       },
       {
@@ -828,10 +808,6 @@
       {
         "retailer": "bass-pro",
         "url": ""
-      },
-      {
-        "retailer": "cabelas",
-        "url": ""
       }
     ],
     "tags": ["knife", "bushcraft"]
@@ -861,7 +837,7 @@
         "url": ""
       },
       {
-        "retailer": "rei",
+        "retailer": "mec",
         "url": ""
       },
       {
@@ -869,7 +845,7 @@
         "url": ""
       },
       {
-        "retailer": "cabelas",
+        "retailer": "rei",
         "url": ""
       }
     ],
@@ -896,15 +872,11 @@
     "cons": ["Pricey"],
     "links": [
       {
+        "retailer": "mec",
+        "url": ""
+      },
+      {
         "retailer": "bass-pro",
-        "url": ""
-      },
-      {
-        "retailer": "cabelas",
-        "url": ""
-      },
-      {
-        "retailer": "backcountry",
         "url": ""
       }
     ],
@@ -935,11 +907,11 @@
         "url": ""
       },
       {
-        "retailer": "rei",
+        "retailer": "mec",
         "url": ""
       },
       {
-        "retailer": "backcountry",
+        "retailer": "rei",
         "url": ""
       }
     ],
@@ -973,10 +945,6 @@
       {
         "retailer": "bass-pro",
         "url": ""
-      },
-      {
-        "retailer": "cabelas",
-        "url": ""
       }
     ],
     "tags": ["chair", "car camping"]
@@ -1006,11 +974,15 @@
         "url": ""
       },
       {
-        "retailer": "rei",
+        "retailer": "mec",
         "url": ""
       },
       {
         "retailer": "bass-pro",
+        "url": ""
+      },
+      {
+        "retailer": "rei",
         "url": ""
       }
     ],
